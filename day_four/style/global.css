@@ -1,0 +1,111 @@
+html {
+    font-size: 10px;
+  }
+  h1 {
+    font-size: 2.6rem;
+  }
+  p,ul,table {
+    font-size: 1.5rem;
+  }
+  p b {
+    font-size: 1.8rem;
+    line-height: 3.2rem;
+    padding-left: 5px;
+  }
+  h1,p {
+    font-family: "Microsoft Yahei","Sim Sun";
+  }
+  table {
+    font-family: Helvetica,Arial,san-serif;
+  }
+  nav {
+    line-height: 3.5rem;
+  }
+  body {
+    background-color: #fff;
+  }
+  h1 {
+    color: #f99;
+    text-align: center;   
+    border: 2px solid #ccc;
+    border-width: 20px;
+    background-clip: padding-box;
+    border-image-source: url(https://mdn.mozillademos.org/files/13060/border-image.png);
+    border-image-slice: 40;
+    border-image-repeat: round;
+    background-color: #fff;
+  }
+  p {
+    background-color: #aaa;
+    background-image: linear-gradient(to bottom,yellow,orange);
+  }
+  ul {
+    background-color: rgba(123,12,123,0.5);
+  }
+  table {
+    width: 50%;
+    border: 2px dotted red;
+    position: relative;
+    left: 25%;
+  }
+  tr>th {
+    font-size: 1.5em;
+    color: black;
+    text-shadow: 2px 2px 2px #266;
+    text-decoration: underline green wavy;
+  }
+  tr+tr {
+    color: green;
+  }
+  td time {
+    color: blue;
+  }
+  tr:nth-child(3) td,tr:nth-child(6) td {
+    text-align: justify;
+    text-indent: 3.2rem;
+  }
+  a {
+    text-decoration: none;
+    outline: none;
+  }
+  a[href*="http"] {
+    background: url(https://onepagelove.com/wp-content/themes/onepagelove/img/heart.png) no-repeat 100% 0;
+    background-size: 15px 15px;
+    padding-right: 17px;
+  }
+  a:link,a:visited,a:focus {
+    color: rgb(140,0,0);
+  }
+  a:hover {
+    color: red;
+  }
+  a:active {
+    background-color: red;
+    color: white;
+  }
+  nav {
+    font-size:0;
+  }
+  nav a {
+    font-size: 2.0rem;
+    color: white;
+    background-color: red;
+    display: inline-block;
+    width: 19.5%;
+    margin-right: 0.625%;
+    text-align: center;
+  }
+  nav :last-child {
+    margin-right: 0;
+  }
+  nav a:link,nav a:visited,nav a:focus {
+    color: white;
+  }
+  nav a:hover {
+    border-bottom: 2px solid;
+    color: black;
+  }
+  nav a:active {
+    background-color: pink;
+    color: white;
+  }
