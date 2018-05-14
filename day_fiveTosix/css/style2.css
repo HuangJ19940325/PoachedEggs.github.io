@@ -1,0 +1,121 @@
+/*typography*/
+html {
+    font-size: 10px;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family:"Microsoft YaHei", Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+}
+
+header h1 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2.1rem;
+    font-weight: 700;
+}
+
+dl {
+    font-size: 0;
+}
+
+dl dt,
+dl dd {
+    font-size: 1.6rem;
+}
+
+dl dt {
+    font-weight: 700;
+}
+
+
+/*formattingModel*/
+.main {
+    display: flex;
+}
+
+.basic_info dt,
+.basic_info dd,
+.contact dt,
+.contact dd {
+    display: inline-block;
+}
+
+/*boxModel*/
+.main {
+    box-sizing: border-box;
+    /*border: 2px #ccc solid;*/
+    margin: 0 auto;
+    padding: 0;
+    width: 80%;
+    min-width: 800px;
+    max-width: 2000px;
+}
+
+header {
+    box-sizing: border-box;
+    width:20%;
+}
+
+section {
+    box-sizing: border-box;
+    /*border: 2px #ccc solid;*/
+    padding-left: 2.5rem;
+    padding-bottom: 2rem;
+    width: 80%;
+}
+
+.basic_info dd,
+.contact dd {
+    margin-left: 1rem;
+    margin-right: 5rem;
+}
+
+.basic_info dd:last-child,
+.contact dd:last-child {
+    margin-right: 0;
+}
+
+.skill dd,
+.education dd,
+.project dd {
+    margin-left: 0;
+}
+
+.skill dl:nth-of-type(odd),
+.education dl:nth-of-type(odd),
+.project dl:nth-of-type(odd) {
+    margin-bottom: 1.5rem;
+}
+
+.skill dl:last-child,
+.education dl:last-child,
+.project dl:last-child {
+    margin-bottom: 0;
+}
+
+
+/*visual*/
+html {
+    background-color: blanchedalmond;
+}
+
+.main {
+    background-clip: border-box;
+    background-color: aliceblue;
+}
+
+header {
+    background-color: #00a2e8;
+    color: #fff;
+}
+
+

@@ -1,0 +1,71 @@
+/*typrgraphy*/
+html {
+    font-size: 10px;
+}
+
+body {
+    margin: 0;
+}
+
+nav {
+    font-size: 0;
+}
+
+nav a {
+    font-size: 2rem;
+    line-height: 2;
+    text-align: center;
+}
+
+
+/*formattingModel*/
+nav a {
+    display: inline-block;
+}
+
+
+/*boxModel*/
+nav {
+    margin: 0 auto;
+    width: 80%;
+    min-width: 800px;
+    max-width: 2000px;
+}
+nav a {
+    width: 33.2%;
+    margin-top: 0;
+    margin-right: 0.2%;
+}
+nav a:last-child {
+    margin-right: 0;
+}
+
+
+/*visual*/
+nav a {
+    text-decoration: none;
+    outline: none;
+}
+
+nav a:link,
+nav a:focus,
+nav a:visited {
+    background-color: #a0c1c7;
+    color: #fff;
+}
+
+nav a:hover {
+    background-color: #8080ff;
+}
+
+nav a:active {
+    background-color: #008080;
+}
+
+.this:link,
+.this:focus,
+.this:visited,
+.this:hover,
+.this:active {
+    background-color: #8080ff;
+}
