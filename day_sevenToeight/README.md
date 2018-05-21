@@ -1,5 +1,5 @@
 # 学习时间
--  7.5hours
+-  7.5hours+7
 # 学习内容
 ## 定位：[要对元素定位，我们使用元素的position属性](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/%E5%AE%9A%E4%BD%8D)。
 
@@ -136,7 +136,7 @@ order|0/-1/1|改变 flex 项的布局位置的功能，而不会影响到源顺�
   * 优点：无需清除浮动；无需父元素overflow:hidden
   * 缺点：需要空格以及顶部对齐;其余同上后3条；  
 * 方法三：float+块元素 块元素margin-left:px; 设置float元素宽度 父元素overflow:hidden
-  * 优点：代码简单，易上手；
+  * 优点：代码简单，易上手；
   * 缺点：
     * 需要对一侧的float元素设定宽度，对于宽度不一致的类似布局,难以复用，需要重新设置宽度。
     * 父元素设置overflow:hidden，否则，在块元素更短的情况下，父元素无法完全包住float元素。
