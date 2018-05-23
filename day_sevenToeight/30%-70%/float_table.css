@@ -1,0 +1,9 @@
+/*float + table-cell*/
+.left {
+    float: left;
+    width: 30%;
+}
+.right {
+    display: table-cell;
+    width: 9999px;       /*table-cell宽度超出屏幕宽度很多时，自适应屏幕宽度*/
+}

@@ -1,0 +1,8 @@
+.left {
+    float: left;
+    width: 300px;
+}
+.right {
+    display: block;
+    overflow: hidden;
+}

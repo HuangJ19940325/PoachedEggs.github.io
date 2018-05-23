@@ -1,0 +1,13 @@
+.container {
+    font-size: 0;
+}
+.left,.right {
+    font-size: 16px;
+    display: inline-block;
+}
+.left {
+    width: calc(100% - 300px);
+}
+.right {
+    width: 300px;
+}

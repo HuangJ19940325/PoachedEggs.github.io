@@ -1,0 +1,34 @@
+body {
+    margin: 0;
+    min-width: 700px;
+}
+
+#container {
+    padding: 0 300px 0 200px;
+}
+
+#center {
+    float: left;
+    width: 100%;
+}
+
+#left {
+    width: 200px;
+    float: left;
+    margin-left: -100%;
+    position: relative;  
+    left: -200px;
+}
+
+#right {
+    width: 300px;
+    float: left;
+    margin-left: -300px;  /*可以改用margin-right：-300px*/
+    position: relative;   /*可以改用margin-right：-300px*/
+    left: 300px;          /*可以改用margin-right：-300px*/
+}
+
+#footer {
+    clear: both;
+}
+

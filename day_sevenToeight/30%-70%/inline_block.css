@@ -1,0 +1,14 @@
+    /*双inline-block*/
+    .container {
+        font-size: 0;    /*清空格*/
+    }
+    .left,.right {
+        display: inline-block;
+        font-size: 16px; /*重新设置字体*/
+    }
+    .left {
+        width: 30%;  
+    }
+    .right {
+        width: 70%;   
+    }

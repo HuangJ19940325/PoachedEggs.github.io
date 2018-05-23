@@ -1,0 +1,29 @@
+body {
+    min-width: 500px;
+}
+#container {
+    width: 100%;
+}
+#center {
+    float: left;
+    width: 100%;
+}
+#main_content {
+    margin-left: 500px;      /*LC+RC*/
+}
+#left {
+    float: left;
+    width: 200px;            /*LC*/
+    margin-left: -100%;
+}
+#right {
+    float: left;
+    width: 300px;            /*RC*/
+    margin-left: -100%;
+    position: relative;
+    left: 200px;             /*LC*/
+}
+
+#footer {
+    clear: both;
+}

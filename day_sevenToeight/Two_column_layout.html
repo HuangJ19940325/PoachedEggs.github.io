@@ -1,76 +1,68 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="fixed-adapt-fixed/Holy_Grail1.css">
+    <link rel="stylesheet" href="30%-70%/flex.css">
     <link rel="stylesheet" href="nav_style.css">
     <style>
-        html,body {
-            margin: 0;
-            display: block;
-            height: 100%;
-        }
-        div {
-            display: block;
-        }
-        section {
-            height: 100%;
-        }
-        #header,#footer {
-            line-height: 20px;
-            background-color: aqua;
-        }
-        #container {
-            height: calc(100% - 40px);
-            background-color: gray;
-        }
-        #center {
-            height: 100%;
-            background-clip: content-box;
-            background-color: rgba(138,43,226,0.5);
-        }
-        #main_content {
-            height: 100%;
-            background-color: antiquewhite;
-        }
-        #left {
-            height: 100%;
-            background-color: rgba(0,255,0,0.5);
-        }
-        #right {
-            height: 100%;
-            background-color: rgba(165,42,42,0.5);
-        }
+    html,body {
+        margin: 0;
+        display: block;
+        height: 100%;
+    } 
+    header,footer {
+        line-height: 20px;
+        background-color: aqua;
+    }
+    div {
+        display: block;
+    }
+    .container {
+        height: calc(100% - 40px);
+    }
+    .left {
+        height: 100%;   /*单独设置自适应高度*/
+        background-color: blueviolet;
+    }
+    .right {
+        height: 100%;   /*单独设置自适应高度*/
+        background-color: brown;
+    }
     </style>
 </head>
 <body>
-    <section>
-        <div id="header">
-            <ul class="parent_ul">
-                <li class="parent_li">fixed-adapt-fixed</li>
-                    <ul class="child_ul">
-                        <li>Holy_Grail1</li>
-                        <li>Holy_Grail2</li>
-                        <li>two_wings</li>
-                    </ul>
-                <li class="parent_li">fixed-fixed-adapt</li>
-                    <ul class="child_ul">
-                        <li>two_wings</li>
-                    </ul>                     
-            </ul>            
-        </div>
-        <div id="container">
-            <div id="center" class="column">
-                <div id="main_content">主要内容</div>                         <!--主要内容-->
-            </div>
-            <div id="left" class="column">左侧边栏</div>                      <!--左侧边栏-->
-            <div id="right" class="column">右侧边栏</div>                      <!--右侧边栏-->
-        </div>
-        <div id="footer">脚注部分</div>
-    </section>
+    <header>
+        <ul class="parent_ul">
+            <li class="parent_li">30%-70%</li>
+                <ul class="child_ul">
+                    <li>inline_block</li>
+                    <li>float</li>
+                    <li>float_table</li>
+                    <li>float_BFC</li>
+                    <li>flex</li>
+                </ul>
+            <li class="parent_li">fixed-adapt</li>
+                <ul class="child_ul">
+                    <li>block</li>
+                    <li>float_BFC</li>
+                    <li>float_table</li>
+                </ul>            
+            <li class="parent_li">adapt-fixed</li>
+                <ul class="child_ul">
+                    <li>BFC_float</li>
+                    <li>calc</li>
+                    <li>float</li>
+                </ul>           
+        </ul>
+    </header>
+    <div class="container">
+        <div class="left">1</div>
+        <div class="right">2</div>
+    </div>
+    <footer>footer</footer>
     <script>
         var parent_ul = document.getElementsByClassName("parent_ul")[0];
         var parent_lis = document.getElementsByClassName("parent_li");

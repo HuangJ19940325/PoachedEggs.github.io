@@ -1,0 +1,12 @@
+.container {
+    padding-right: 300px;
+}
+.left {
+    float: left;
+    width: 100%;
+}
+.right {
+    float: left;
+    width: 300px;
+    margin-right: -300px;
+}

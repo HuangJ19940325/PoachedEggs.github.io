@@ -1,0 +1,9 @@
+/*float+BFC（block）*/
+.left {
+    float: left;
+    width: 30%;
+}
+.right {
+    display: block;   /*无需设置宽度，就能自适应*/
+    /*overflow: hidden; /*为块元素添加overflow属性*/
+}

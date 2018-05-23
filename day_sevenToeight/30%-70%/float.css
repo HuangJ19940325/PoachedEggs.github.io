@@ -1,0 +1,13 @@
+/*双float*/
+.container {
+    overflow: hidden; /*为父元素添加overflow属性*/
+}
+.left,.right {
+    float: left;
+}
+.left {
+    width: 30%;
+}
+.right {
+    width: 70%;
+}
