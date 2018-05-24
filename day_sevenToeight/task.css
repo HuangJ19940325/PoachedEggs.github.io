@@ -104,7 +104,7 @@ nav a {
     height: 50px;
     width: 9999px;
     display: table-cell;   
-    vertical-align: bottom;
+    vertical-align: bottom;    /*把对齐的子元素的底端与line box底端对齐。*/
 }
 
 nav {
