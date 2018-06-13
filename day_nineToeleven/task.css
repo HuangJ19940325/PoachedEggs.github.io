@@ -1,0 +1,656 @@
+/*formatting module*/
+
+/*box module*/
+
+/*typographic*/
+h1 {
+    font-size: 4.8rem;
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 3.2rem;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 2.4rem;
+    font-weight: 300;
+}
+
+p {
+    font-size: 1.6rem;
+    font-weight: 200;
+    color: #aaa;
+}
+
+input,
+textarea,
+button {
+    font-size: 1.6rem;
+    font-weight: 200;
+
+}
+
+
+/*visual*/
+
+html {
+    font-size: 10px;
+    min-width: 1000px;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.page1_cont,
+.page2_cont,
+.page3_cont,
+.page4_cont,
+.page5_cont,
+.page6_cont,
+.page7_cont {
+    width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 5% 0;
+}
+
+#page1 {
+    /*color*/
+    background-image: url(images/page1_back.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /*size*/
+    width: 100%;
+    height: 900px;
+}
+
+#page1 .backg {
+    /*box module*/
+    width: 100%;
+    height: 100%;
+    /*color*/
+    background-color: rgba(31,31,31,0.5);
+}
+
+.page1_cont {
+    /* width: 900px; */
+    height: 100%;
+    margin: 0px auto;
+    padding-top: 5%;
+    /*typographic*/
+    text-align: center;
+    /*visual*/
+    color: #fff;
+
+}
+
+.page1_cont h1 { 
+    /*typographic*/
+    font-size: 4.8rem;
+    font-weight: 300;
+    text-transform: capitalize;
+}
+
+.page1_cont p {
+    /*box module*/
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 8%;
+    /*visual*/
+    color: #ccc;
+}
+
+.user_account {
+    /*formatting module*/
+    display: inline-block;
+    /*box module*/
+    box-sizing: border-box;
+    border: 1px #aaa solid;
+    width: 100%;
+    padding: 40px 80px;
+    padding-top: 0px;
+    margin: auto auto;
+}
+.user_account h3 {
+    text-transform: uppercase;
+ }
+.user_account p {
+    text-transform: uppercase;
+    color: #888;
+}
+
+#signup {
+    /*formatting module*/
+    display: -webkit-flex; /* Safari */
+    -webkit-justify-content: space-around; /* Safari 6.1+ */
+    display: flex;
+    /* justify-content: space-between; */    /* 弹性盒子内的每个项之间出现等宽间隙 */
+}
+
+.item {
+    /*box module*/
+    border: 1px #aaa solid;
+    margin-right: 30px;
+    /*typographic*/
+    line-height: 2.5;
+    flex: 2;
+    
+}
+
+.item:nth-of-type(3) {
+    flex: 1;
+    margin-right: 0;
+}
+
+
+input[type*="text"] {
+    /*visual*/
+    background-color: rgba(31,31,31,0);
+
+}
+
+input[type*="text"]:focus {
+    /*visual*/
+    color: white;
+    background-color: rgba(31,31,31,0);
+}
+
+#page2 {
+    /*box module*/
+    width: 100%;
+}
+
+.page2_cont {
+    /*box module*/
+    margin: 0 auto;
+    /*typographic*/
+    text-align: center;
+}
+
+.page2_cont h2 {
+    /*box module*/
+    width: 80%;
+    margin: 35px auto;
+    margin-bottom: 60px;
+}
+
+.page2_list {
+    /* display: inline; */
+    overflow: hidden;
+    font-size: 0;         /* 消除inline-block之间的间隙 */
+}
+
+.page2_list h3 {
+    margin-top: 0;         /*背景图片与标题顶部对齐*/
+}
+
+.page2_list article {
+    display: inline-block;
+    /*box module*/
+    box-sizing: border-box;
+    width: 43%;                 /* ArtWidth */
+    padding-left: 70px;
+    margin-bottom: 20px;
+    /* visual */
+    background-repeat: no-repeat;
+    background-position: left top;
+    /* typegraphic */
+    text-align: left;
+    vertical-align: top;   /*div下多个inline-block出现参差不齐的现象，给inline-block加上vertical-align: top解决。*/
+}
+
+.page2_list article p {
+    color: #aaa;
+}
+
+.page2_list article:nth-of-type(even) {
+    margin-left: 14%;      /* 两列article之间的空格100%-2*ArtWidth */
+}
+
+.page2_list article:nth-of-type(1) {
+    background-image: url(images/page2_1.png);
+}
+
+.page2_list article:nth-of-type(2) {
+    background-image: url(images/page2_2.png); 
+}
+
+.page2_list article:nth-of-type(3) {
+    background-image: url(images/page2_3.png);
+}
+
+.page2_list article:nth-of-type(4) {
+    background-image: url(images/page2_4.png);
+}
+
+#page3 {
+    overflow: hidden; /* used for big padding-bottom margin-bottom */ 
+}
+
+.page3_backi,
+#page3 .backg {
+    box-sizing: border-box;
+    padding-bottom: 2000px;     /* 等高背景图片块和半透明层块 */
+    margin-bottom: -2003px;     /* ? */
+}
+
+.page3_backi {
+    float: left;
+    width: 100%;
+       
+}
+
+.page3_backi img {
+    width: 100%;        /*div内放img，实现响应式图片，图片高度随宽度定比缩小。背景图片则不会 */
+}
+
+#page3 .backg {
+    /* formating module */
+    overflow: hidden; 
+    float: left; 
+    position: relative;  /* 存在绝对定位子元素 */
+    /* box module */
+    width: 100%;
+    margin-left: -100%;   /* 圣杯布局 */
+    padding-top: 0;
+
+    /* vertical-align: middle; */   /* 内联元素，已知高度时，用vertical-align属性 */
+    /* visual */
+    background-color: rgba(31,31,31,0.5);
+}
+
+/* .page3_cont {
+    padding: 0;
+    position: relative;
+} */
+
+/* .page3_context {
+    
+    position: absolute;
+    left: 15%;
+    top: calc(50% - 1200px);   /* 文字块垂直居中 (parent_height/2 - parent_borderbottom/2) - this.height/2 */
+    
+/*    width: 35%;
+    min-width: 370px;   
+} */
+
+.page3_context {
+    width: 50%;
+    padding-top: 10%;
+}
+
+.page3_context h2 {
+    color: #fff;
+}
+
+.page3_context p {
+    width: 80%;
+    margin-bottom: 40px;
+    color: #aaa;
+}
+
+.page3_context a {
+    display: inline-block;  /* a元素是内联元素，不能设置宽度，其宽度是内容+边框+边距的值 */
+    
+    border: 1px #aaa solid;
+    box-sizing: border-box;
+    width: 47.5%;           /* awidth */
+    min-width: 230px;
+    margin-bottom: 30px;
+
+    line-height: 2.5;    /* 内联元素如需设置行高，通过设置line-height撑起来 */
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+
+    color: #fff;
+    background-color: rgba(31,31,31,0);
+
+}
+
+.page3_context a:nth-of-type(1) {
+    margin-right: 5%;         /* 两链接之间的空隙 100% - 2*awidth*/
+}
+
+a:click,
+a:focus,
+a:active {
+    background-color: rgba(31,31,31,0);
+    color: #fff;
+}
+
+a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* .ipad {
+    float: right;
+    position: relative;
+ 
+    border: 1px #aaa solid;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+    margin: 4% 0;  /* ipad垂直居中 parent_height的4%； 注意此处需设置margin-top和margin-bottom,这样旁边的文字块才能居中*/
+/*    padding: 2% 0 2% 4%;
+
+    width: 40%; 
+    
+} */
+
+.ipad {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    border: 1px #aaa solid;
+    border-top-left-radius: 5%;
+    border-bottom-left-radius: 5%;
+    margin: 4% 0;
+    padding: 2% 0 2% 4%;
+    width: 40%;
+
+}
+
+.circle {
+    
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    width: 10px;
+    height: 10px;
+    border: 1px #aaa solid;
+    border-radius: 50%;
+}
+
+.ipad img {
+    display: block;
+    width: 100%;
+}
+
+#page4 {
+    position: relative;  /* for equal height of page3 */
+
+    box-sizing: border-box;
+    border-bottom: 1px #aaa solid; 
+}
+
+.page4_cont {  
+    margin: 0 auto;
+    text-align: center;
+}
+
+.page4_list {
+    width: 100%;
+    
+    text-align: left;
+    font-size: 0;
+}
+
+.page4_list .page4_item {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 30%;
+
+    margin-left: 5%;
+    text-align: center;   
+}
+
+.page4_item:nth-of-type(1) {
+    margin-left: 0;
+}
+
+#page5 {
+
+    border-bottom: 1px #aaa solid;
+}
+
+/* .page5_cont {
+    margin: 0 auto;
+} */
+
+.page5_part1,
+.page5_part2 {
+    overflow: hidden;
+    padding: 50px 0;
+}
+
+.page5_cont article {
+    overflow: hidden;         /* 触发BFC */
+    padding: 20px;
+}
+
+.page5_cont article p {
+    text-align: justify;     /* 两端对齐 */
+    color: #aaa;
+}
+
+.trees {
+    float: left;
+    margin-right: 5%;
+}
+
+.bird {
+    float: right;   /* 触发BFC img元素在html中，放在article之前，这样就文档流中的article就会移至左边*/   
+    margin-left: 5%;
+}
+
+#page6 {
+    position: relative;  
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px #aaa solid; 
+}
+
+.page6_cont {
+    text-align: center;
+}
+
+.page6_cont p {
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.page6_imgs {
+    font-size: 0;            /*  清空格 */
+}
+
+.page6_item {
+    display: inline-block;
+    width: 48.5%;                    /* itemwidth */
+
+    overflow: hidden;
+}
+
+.page6_item:nth-of-type(even) {
+    margin-left: 3%;              /* 100%-2*itemwidth */
+}
+
+.page6_item:nth-of-type(1),
+.page6_item:nth-of-type(2) {
+    margin-bottom: 3%;
+}
+
+.page6_backi {
+    float: left;
+    width: 100%;
+    /* visibility: hidden; */
+    padding-bottom: 1000px;
+    margin-bottom: -1000px;
+}
+
+/* .page6_backi img {
+    width: 100%;
+} */
+
+.hovered {
+    float: left;
+    width: 100%;
+    margin-left: -100%;
+    padding-top: 8%;
+    padding-bottom: 1000px;
+    margin-bottom: -1000px;
+    opacity: 0;         /* 让内容和背景都不可见 */
+    text-align: center;
+}
+
+ .person_contact img {
+    /* opacity: 1; */
+    border:  1px solid #fff;
+    border-radius: 50%;
+    margin: 0 2%;
+} 
+
+.person_contact a {
+    text-decoration: none;
+    background-color: rgba(31,31,31,0);     /* 背景透明 */
+}
+
+/* .person_contact a:link,
+.person_contact a:focus,
+.person_contact a:active {
+    text-decoration: none;
+}
+
+.person_contact a:hover {
+    text-decoration: none;
+    background-color: rgba(31,31,31,0);
+}
+
+.person_contact a:visited {
+    text-decoration: none;
+} */
+
+.hovered:hover {
+    /* background-color: rgba(31,31,31,0.8); */
+    color: #fff;
+    opacity: 1;
+    background-color: rgba(31,31,31,0.8); 
+}
+
+.page7_cont {
+    font-size: 0;
+}
+
+.page7_cont form {
+    display: inline-block;
+    box-sizing: border-box;
+    border: 1px #aaa solid;
+    border-radius: 3%;
+    padding: 40px;
+    width: 50%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.page7_cont form input,
+.page7_cont form textarea {
+    display: inline-block;
+    
+    box-sizing: border-box;
+    border: 1px #888 solid;
+    width: 100%;
+    margin: 3% auto;
+    padding-left: 15px;
+    
+    line-height: 2.5;       /* 此行高设置有用 */
+}
+
+input[type="submit"] {
+    line-height: 4;         /* 属性选择器的优先级没有类选择器高，所以此行高设置无用 */
+    color: #fff;
+    background-color: #222;
+}
+#send {
+    line-height: 4;  
+}
+
+.contact {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 50%;
+    padding: 40px 0;
+    padding-left: 80px;
+    vertical-align: top;
+}
+
+.contact p {
+    padding-bottom: 40px;
+}
+
+.adress,
+.phone,
+.email {
+    padding-left: 30px;
+}
+
+.adress {
+    background-image: url(images/page7_adress.png);
+    background-repeat: no-repeat;
+}
+
+.phone {
+    background-image: url(images/page7_phone.png);
+    background-repeat: no-repeat;
+}
+
+.email {
+    background-image: url(images/page7_email.png);
+    background-repeat: no-repeat;
+}
+
+footer {
+    padding: 5% 0;
+    background-color: #111;
+}
+
+.footer1,
+.footer2,
+.footer3,
+.footer4 {
+    display: inline-block;
+
+    box-sizing: border-box;
+    width: 23%;
+    padding-left: 8%;
+
+    vertical-align: top;
+
+    color: #fff;
+    
+}
+
+footer ul {
+    list-style: none;
+    padding-left: 0;
+    color: #666;
+}
+
+footer ul li {
+    margin-bottom: 10%;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+}
+
+footer h3 {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+
+.brandimg {
+    word-spacing: 10px;
+    opacity: 0.5;
+}
+
+
+
+
+
+
