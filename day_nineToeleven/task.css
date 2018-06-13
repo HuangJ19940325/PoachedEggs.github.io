@@ -82,7 +82,6 @@ body {
 }
 
 .page1_cont {
-    /* width: 900px; */
     height: 100%;
     margin: 0px auto;
     padding-top: 5%;
@@ -122,9 +121,11 @@ body {
 }
 .user_account h3 {
     text-transform: uppercase;
+    letter-spacing: 3px;
  }
 .user_account p {
     text-transform: uppercase;
+    letter-spacing: 3px;
     color: #888;
 }
 
@@ -312,9 +313,10 @@ input[type*="text"]:focus {
     text-align: center;
     text-transform: uppercase;
     font-size: 1.6rem;
+    letter-spacing: 3px;
 
     color: #fff;
-    background-color: rgba(31,31,31,0);
+    /* background-color: transparent; */
 
 }
 
@@ -325,7 +327,7 @@ input[type*="text"]:focus {
 a:click,
 a:focus,
 a:active {
-    background-color: rgba(31,31,31,0);
+    /* background-color: transparent; */
     color: #fff;
 }
 
@@ -567,6 +569,12 @@ a:hover {
     
     line-height: 2.5;       /* 此行高设置有用 */
 }
+
+.page7_cont form textarea {
+    height: 150px;
+    resize: none;
+}
+
 
 input[type="submit"] {
     line-height: 4;         /* 属性选择器的优先级没有类选择器高，所以此行高设置无用 */
