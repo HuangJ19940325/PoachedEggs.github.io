@@ -32,6 +32,10 @@ button {
 
 }
 
+input[type="button"] {
+    cursor: pointer;
+}
+
 
 /*visual*/
 
@@ -499,6 +503,7 @@ a:hover {
     margin-bottom: -1000px;
     opacity: 0;         /* 让内容和背景都不可见 */
     text-align: center;
+    transition: opacity 0.8s;
 }
 
  .person_contact img {
@@ -567,6 +572,7 @@ input[type="submit"] {
     line-height: 4;         /* 属性选择器的优先级没有类选择器高，所以此行高设置无用 */
     color: #fff;
     background-color: #222;
+    cursor: pointer;
 }
 #send {
     line-height: 4;  
