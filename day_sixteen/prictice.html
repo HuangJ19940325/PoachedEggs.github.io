@@ -21,7 +21,7 @@
         add_btn.onclick = function() {
             var num1 = document.getElementById("first-number").value;       // input的type属性为number(H5)，因此无需parseInt
             var num2 = document.getElementById("second-number").value;
-            document.getElementById("result").innerHTML = num1 + num2;
+            document.getElementById("result").innerHTML = parseInt(num1) + parseInt(num2);
         }
         // 减
         minus_btn.onclick = function() {
