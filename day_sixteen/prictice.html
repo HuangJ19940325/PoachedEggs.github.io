@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+</head>
+<body>        
+    <input id="first-number" type="number" value="0" placeholder="第一个数字">
+    <input id="second-number" type="number" value="0" placeholder="第二个数字">
+    <button id="add-btn">加</button>
+    <button id="minus-btn">减</button>
+    <button id="times-btn">乘</button>
+    <button id="divide-btn">除</button>
+    <p id="result">运算结果</p>
+    <script>
+        var add_btn = document.getElementById("add-btn");
+        var minus_btn = document.getElementById("minus-btn");
+        var times_btn = document.getElementById("times-btn");
+        var divide_btn = document.getElementById("divide-btn");
+        // 加
+        add_btn.onclick = function() {
+            var num1 = document.getElementById("first-number").value;       // input的type属性为number(H5)，因此无需parseInt
+            var num2 = document.getElementById("second-number").value;
+            document.getElementById("result").innerHTML = num1 + num2;
+        }
+        // 减
+        minus_btn.onclick = function() {
+            var num1 = parseInt(document.getElementById("first-number").value);
+            var num2 = parseInt(document.getElementById("second-number").value);
+            document.getElementById("result").innerHTML = num1 - num2;
+        }
+        // 乘
+        times_btn.onclick = function() {
+            var num1 = document.getElementById("first-number").value;
+            var num2 = document.getElementById("second-number").value;
+            document.getElementById("result").innerHTML = num1 * num2;
+        }
+        // 除
+        divide_btn.onclick = function() {
+            var num1 = parseInt(document.getElementById("first-number").value);
+            var num2 = parseInt(document.getElementById("second-number").value);
+            document.getElementById("result").innerHTML = num1 / num2;
+        }
+        
+    </script>
+</body>
+</html>
