@@ -19,34 +19,59 @@
         var divide_btn = document.getElementById("divide-btn");
         // 加
         add_btn.onclick = function() {
-            var num1 = document.getElementById("first-number").value * 1;       // value返回值为字符串， value*1将字符串转化为数字
-            var num2 = document.getElementById("second-number").value * 1;  
-            var sum = num1 + num2;      //加号的转换规则优先考虑字符串连接
-            document.getElementById("result").innerHTML  = sum;
-            console.log(typeof(num1));
-             
+            var num1 = document.getElementById("first-number").value;       // value返回值为字符串， value*1将字符串转化为数字
+            var num2 = document.getElementById("second-number").value;  
+            var reg = /^(\-|\+)?\d+(\.\d+)?([Ee][+-]?[\d]+)?$/;          //正则表达式正数、负数、浮点数、科学计数
+            if (!reg.test(num1)) {      // 如果num1字符串是数字 reg.test()返回true
+                console.log("num1请输入数字"); 
+            } else if(!reg.test(num2)) { 
+                console.log("num2请输入数字"); 
+            } else {
+                var sum = parseFloat(num1) +  parseFloat(num2);      //加号的转换规则优先考虑字符串连接
+                document.getElementById("result").innerHTML  = sum;
+            }                    
         }
         // 减
         minus_btn.onclick = function() {
-            var num1 = document.getElementById("first-number").value * 1;
-            var num2 = document.getElementById("second-number").value * 1;
-            document.getElementById("result").innerHTML = num1 - num2;     
+            var num1 = document.getElementById("first-number").value;       // value返回值为字符串， value*1将字符串转化为数字
+            var num2 = document.getElementById("second-number").value;  
+            var reg = /^(\-|\+)?\d+(\.\d+)?([Ee][+-]?[\d]+)?$/;          //正则表达式正数、负数、浮点数、科学计数
+            if (!reg.test(num1)) {      // 如果num1字符串是数字 reg.test()返回true
+                console.log("num1请输入数字"); 
+            } else if(!reg.test(num2)) { 
+                console.log("num2请输入数字"); 
+            } else {
+                var sum = parseFloat(num1) -  parseFloat(num2);      //加号的转换规则优先考虑字符串连接
+                document.getElementById("result").innerHTML  = sum;
+            }                         
         }
         // 乘
         times_btn.onclick = function() {
-            var num1 = document.getElementById("first-number").value * 1;
-            var num2 = document.getElementById("second-number").value * 1;
-            document.getElementById("result").innerHTML = num1 * num2;
+            var num1 = document.getElementById("first-number").value;       // value返回值为字符串， value*1将字符串转化为数字
+            var num2 = document.getElementById("second-number").value;  
+            var reg = /^(\-|\+)?\d+(\.\d+)?([Ee][+-]?[\d]+)?$/;          //正则表达式正数、负数、浮点数、科学计数
+            if (!reg.test(num1)) {      // 如果num1字符串是数字 reg.test()返回true
+                console.log("num1请输入数字"); 
+            } else if(!reg.test(num2)) { 
+                console.log("num2请输入数字"); 
+            } else {
+                var sum = parseFloat(num1) *  parseFloat(num2);      //加号的转换规则优先考虑字符串连接
+                document.getElementById("result").innerHTML  = sum;
+            }                    
         }
         // 除
         divide_btn.onclick = function() {
-            var num1 = document.getElementById("first-number").value * 1;
-            var num2 = document.getElementById("second-number").value * 1;
-            if(num2 == 0) {
-                alert("除数不能为0");                    
+            var num1 = document.getElementById("first-number").value;       // value返回值为字符串， value*1将字符串转化为数字
+            var num2 = document.getElementById("second-number").value;  
+            var reg = /^(\-|\+)?\d+(\.\d+)?([Ee][+-]?[\d]+)?$/;          //正则表达式正数、负数、浮点数、科学计数
+            if (!reg.test(num1)) {              // 如果num1字符串是数字 reg.test()返回true
+                console.log("num1请输入数字"); 
+            } else if(!reg.test(num2)) { 
+                console.log("num2请输入数字"); 
             } else {
-                document.getElementById("result").innerHTML = num1 / num2;
-            }  
+                var sum = parseFloat(num1) /  parseFloat(num2);      //加号的转换规则优先考虑字符串连接
+                document.getElementById("result").innerHTML  = sum;
+            }                    
         }
         
     </script>
