@@ -32,18 +32,19 @@
     <script>
         var btn = document.getElementById("nine");
         var myTable = document.createElement("table");
+        var resnum = 2;
         for (let i = 1; i < 10; i++) {
             var myTr = document.createElement("tr");
             myTable.appendChild(myTr);
             const numA = i;
-            for (let j = 1; j < 10; j++) {
+            for (let j = 1; j < resnum; j++) {
                 var myTd = document.createElement("td");
                 myTr.appendChild(myTd);
                 const numB = j;
                 const res = numA * numB;
-                myTd.innerHTML = numB + "*" + numA + "=" + res;
+                myTd.innerHTML = numB + "*" + numA + "=" + res; 
             }
-            
+            resnum++;
         }
         myTable.setAttribute("class","myTable"); //为table添加样式
         var myBody = document.body;
