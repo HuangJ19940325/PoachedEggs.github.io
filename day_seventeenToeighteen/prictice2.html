@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+</head>
+<body>        
+    <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+    <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+    <button id="trans-btn">转化为二进制</button>
+    <p id="result">运算结果</p>
+    <script>
+
+        function isNonNegNum(decNumber) {
+            var reg = /^[\d]+$/;
+            if(reg.test(decNumber)) {
+                return true;
+            } else {
+                return false;
+            }   
+        }
+
+        function dec2bin(decNumber) {
+            // 在这里实现你的转化方法，注意需要判断输入必须为一个非负整数
+            // 这里是上一个任务的实现
+            
+            // 创建数组存储二进制数字
+            var binary = new Array();
+            // 初始化数组脚标、商、余数
+            var i = 0;
+            var quotient = 0;
+            var remainder = 0;
+            decNumber = parseInt(decNumber);
+            // 十进制数转化为二进制
+            do {    
+                quotient = parseInt(decNumber / 2);
+                remainder = decNumber % 2;
+                binary[i] = remainder;
+                i++;
+                decNumber = quotient;
+            } while(decNumber > 0);  // decNumber == 0时，退出循环。
+            // 逆序binary数组
+            var newbin = new Array();
+            var i = 0;
+            for (let index = binary.length - 1; index >= 0; index--) {
+                newbin[i] = binary[index];
+                i++;
+            }
+            // console.log("转化的二进制数为：" + newbin);
+            // 将得到的数组转化为字符串
+            var strbin = newbin.join("");
+            // 返回字符串
+            return strbin;
+        
+        }
+
+        // 实现党点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+        // 新的需求是，转化显示后的二进制数为bin-bit中输入的数字宽度，例如
+        // dec-number为5，bin-bit为5，则转化后数字为00101
+        // 如果bin-bit小于转化后的二进制本身位数，则使用原本的位数，如dec-number为5，bin-bit为2，依然输出101，但同时在console中报个错
+        var trans = document.getElementById("trans-btn");    
+        trans.onclick = function () {   
+            var binbit = document.getElementById("bin-bit").value;
+            if(isNonNegNum(binbit)) {
+                binbit = parseInt(binbit);
+                var num = document.getElementById("dec-number").value;
+                if(isNonNegNum(num)) {
+                    var strbin = dec2bin(num);
+                    var arrybin = dec2bin(num).split(""); //将得到的字符串转化为数组
+                    if(binbit < arrybin.length) {
+                        console.log("转化的二进制位长度大于" + binbit);
+                        document.getElementById("result").innerHTML = strbin;
+                    } else {
+                        var newArrybin = new Array(binbit);
+                        for (let index = 0; index < binbit; index++) {
+                            var zerobit = binbit - arrybin.length;
+                            if(index < zerobit) {
+                                newArrybin[index] = 0;
+                            } else {
+                                newArrybin[index] = arrybin[index - zerobit];
+                            }
+                        }
+                        var newStrbin = newArrybin.join("");
+                        document.getElementById("result").innerHTML = newStrbin;
+                    }
+                } else {
+                    console.log("请输入非负整数dec-num");
+                }
+            } else {
+                console.log("请输入正整数bin-bit");
+            }
+        }
+
+    </script>
+</body>
+</html>

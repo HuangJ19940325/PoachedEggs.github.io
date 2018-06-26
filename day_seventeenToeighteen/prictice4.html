@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .myTable {
+            /* border: 1px solid #444; */
+            border-collapse: collapse;
+            display: none;
+        }
+        .myTable td {
+            width: 100px;
+            border: 1px solid #444;
+            text-align: center;
+            line-height: 2;
+            background-color: aquamarine;
+        }
+        #sayhello {
+            display: inline-block;
+            float: right;
+            margin-right: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button id="nine">实现一个九九乘法表</button>
+    </div>
+    <script>
+        var btn = document.getElementById("nine");
+        var myTable = document.createElement("table");
+        for (let i = 1; i < 10; i++) {
+            var myTr = document.createElement("tr");
+            myTable.appendChild(myTr);
+            const numA = i;
+            for (let j = 1; j < 10; j++) {
+                var myTd = document.createElement("td");
+                myTr.appendChild(myTd);
+                const numB = j;
+                const res = numA * numB;
+                myTd.innerHTML = numB + "*" + numA + "=" + res;
+            }
+            
+        }
+        myTable.setAttribute("class","myTable"); //为table添加样式
+        var myBody = document.body;
+        myBody.appendChild(myTable);
+        //点击显示/隐藏
+        var flag = 1;
+        btn.onclick = function() { 
+            if(flag) {
+                myTable.style.display = "inline-block";
+                flag = 0;
+            } else {
+                myTable.style.display = "none";
+                flag = 1;
+            }
+        }
+
+        //分时问候
+        var sayHello = document.createElement("h1");
+        sayHello.setAttribute("id","sayhello");
+        myBody.appendChild(sayHello);
+        sayHello.innerHTML = "Hello!";
+        var liflag = 0;
+        function real_time_update() {
+            var myDate = new Date();//获取系统当前时间
+            var mySec = myDate.getSeconds(); //获取当前秒数(0-59)           
+            if(liflag) {
+                sayHello.innerHTML = "你好！";
+                liflag = 0;
+            // } else if(mySec % 2 == 0) {
+            //     sayHello.innerHTML = "Hello!";
+            // } else if(mySec < 4) {
+            //     sayHello.innerHTML = "Bye!";
+            // } else {
+            //     sayHello.innerHTML = "yoga!";
+            } else {
+                sayHello.innerHTML = "Hello!";
+                liflag = 1;
+            }
+        }
+        var int = self.setInterval("real_time_update()",2000);
+    </script>
+</body>
+</html>

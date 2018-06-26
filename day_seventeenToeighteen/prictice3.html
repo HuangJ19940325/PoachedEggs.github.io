@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #result {
+            display: inline-block;
+            width: 100%;
+            border: 1px solid red;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    <p>从1~100输出数字，但当数字为3的倍数或者含有3的时候，输出“PA”</p>
+
+    <p id="result"></p>
+
+    <script>
+        var priArray = new Array();
+        var priStr = new Array();
+        //初始化数组
+        for (let i = 0; i < 100; i++) {
+            const num = i + 1;
+            priArray[i] = num;
+            const strnum =  priArray[i].toString(); //数字变字符串
+            const arrnum = strnum.split("");  //字符串变数组
+            priStr[i] = arrnum;
+        }
+        console.log("原始数组" + priArray);
+        //找出数组中3的倍数或者含有3的数字，并替换为“PA”
+        for (let i = 0; i < priArray.length; i++) {
+            //判断数字是否是3的倍数
+            if(priArray[i] % 3 == 0) {
+                priArray[i] = "PA";
+            } else {
+                //判断数字中是否含有3
+                for (let j = 0; j < priStr[i].length; j++) {
+                    if(priStr[i][j] == 3){
+                        priArray[i] = "PA";
+                        break; 
+                    }    
+                }
+            }    
+        }
+        console.log("替换后的数组" + priArray);
+        document.getElementById("result").innerHTML = priArray;
+    
+    </script>
+</body>
+</html>
