@@ -3,6 +3,25 @@
 <head>
     <meta charset="UTF-8">    
     <title>19-20 day selectquery</title>
+    <style>
+        input {
+            width: 400px;
+            text-align: center;
+            margin: 3px 0;
+        }
+        #allListItem {
+            background-color: green;
+        }
+        #allHtmlSpanInOneSection {
+            background-color: blue;
+        }
+        #listItem {
+            background-color: red;
+        }
+        #activeLinkContent {
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>        
     <div id="wrapper">
@@ -32,6 +51,10 @@
             <img src="">
             <p class="">Some Text</p>
         </div>      
+        <input id="allListItem" type="button" value="找出页面中所有li标签"><br>
+        <input id="allHtmlSpanInOneSection" type="button" value="找出Wrapper section下所有span中内容为HTML的span标签"><br>
+        <input id="listItem" type="button" value="找出Wrapper section下，所有所包含span内容为JS的LI标签"><br>
+        <input id="activeLinkContent" type="button" value="找出Wrapper section下，class为active的链接中包含的文字内容"><br>
     </div>
     <script>
 
@@ -39,57 +62,77 @@
         // 返回页面中所有li标签
         var mylists = document.querySelectorAll("li");
         console.log(mylists);
+        for (let i = 0; i < mylists.length; i++) {
+            mylists[i].style.backgroundColor = "green";    
+        }
         return mylists;
     }
 
     function findAllHtmlSpanInOneSection(sectionId) {
         // 返回某个section下所有span中内容为HTML的span标签
-        var mySec = document.querySelector("#" + sectionId);
-        var mySpan = mySec.querySelectorAll("span");
+        var mySpan = document.querySelectorAll("#" + sectionId + " span");
         if(mySpan.length < 1) return false;
         var myHTMLSpan = [];
-        var j = 0;
+        
         for (let i = 0; i < mySpan.length; i++) {
-            if(mySpan[i].innerHTML != "HTML") {
-                continue;
-            }
-            myHTMLSpan[j] = mySpan[i];
-            j++;
+            if(mySpan[i].innerHTML === "HTML") {
+                myHTMLSpan.push(mySpan[i]);
+                mySpan[i].style.backgroundColor = "blue";
+            }      
         }
+
         console.log(myHTMLSpan);
         return myHTMLSpan;
     }
 
     function findListItem(sectionId, spanCont) {
         // 返回某个section下，所有所包含span内容为spanCont的LI标签
-        var mySec = document.querySelector("#" + sectionId);
-        var mySpan = mySec.querySelectorAll("span");
-        if(mySpan.length < 1) return false;
+        var myLists = document.querySelectorAll("#" + sectionId + " li");
+        if(myLists.length < 1) return false;
         var myContSpan = [];
-        var j = 0;
-        for (let i = 0; i < mySpan.length; i++) {
-            if(mySpan[i].innerHTML != spanCont) {
-                continue;
-            }
-            myContSpan[j] = mySpan[i];
-            j++;
+        for (let i = 0; i < myLists.length; i++) {
+            var mySpans = myLists[i].querySelectorAll("span");
+            for (let j = 0; j < mySpans.length; j++) {
+                if(mySpans[j].innerHTML === spanCont) {
+                    myContSpan.push(myLists[i]);
+                    myLists[i].style.backgroundColor = "red";
+                    break;
+                }        
+            }    
         }
+
         console.log(myContSpan);
         return myContSpan;
     }
 
     function getActiveLinkContent(sectionId) {
         // 返回某个section下，class为active的链接中包含的文字内容
-        var mySec = document.querySelector("#" + sectionId);
-        var myActives = mySec.querySelectorAll(".active");
-        console.log(myActives);
-        return myActives;
+        var myActives = document.querySelectorAll("#" + sectionId + " a.active");
+        var linkCont = [];
+        for (let i = 0; i < myActives.length; i++) {
+            linkCont.push(myActives[i].innerHTML);
+            myActives[i].style.backgroundColor = "yellow";
+        }
+        console.log(linkCont);
+        return linkCont;
     }
 
-    document.write(getAllListItem() + "<br>");
-    document.write(findAllHtmlSpanInOneSection("wrapper") + "<br>");
-    document.write(findListItem("wrapper", "JS") + "<br>");
-    document.write(getActiveLinkContent("wrapper"));
+    var findList_btn = document.querySelector("#allListItem");
+    findList_btn.onclick = function() {
+        getAllListItem();
+    }
+    var findSpan_btn = document.querySelector("#allHtmlSpanInOneSection");
+    findSpan_btn.onclick = function() {
+        findAllHtmlSpanInOneSection("wrapper");
+    }
+    var findSpanList_btn = document.querySelector("#listItem");
+    findSpanList_btn.onclick = function() {
+        findListItem("wrapper", "JS");
+    }
+    var findActiveLink_btn = document.querySelector("#activeLinkContent");
+    findActiveLink_btn.onclick = function() {
+        getActiveLinkContent("wrapper");
+    }
 
     </script>
 </body>
