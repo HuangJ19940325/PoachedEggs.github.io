@@ -51,10 +51,13 @@
             <img src="">
             <p class="">Some Text</p>
         </div>      
-        <input id="allListItem" type="button" value="找出页面中所有li标签"><br>
-        <input id="allHtmlSpanInOneSection" type="button" value="找出Wrapper section下所有span中内容为HTML的span标签"><br>
-        <input id="listItem" type="button" value="找出Wrapper section下，所有所包含span内容为JS的LI标签"><br>
-        <input id="activeLinkContent" type="button" value="找出Wrapper section下，class为active的链接中包含的文字内容"><br>
+
+        <div id="find-btns">
+            <input id="allListItem" type="button" value="找出页面中所有li标签"><br>
+            <input id="allHtmlSpanInOneSection" type="button" value="找出Wrapper section下所有span中内容为HTML的span标签"><br>
+            <input id="listItem" type="button" value="找出Wrapper section下，所有所包含span内容为JS的LI标签"><br>
+            <input id="activeLinkContent" type="button" value="找出Wrapper section下，class为active的链接中包含的文字内容"><br>
+        </div>
     </div>
     <script>
 
@@ -117,22 +120,41 @@
         return linkCont;
     }
 
-    var findList_btn = document.querySelector("#allListItem");
-    findList_btn.onclick = function() {
-        getAllListItem();
-    }
-    var findSpan_btn = document.querySelector("#allHtmlSpanInOneSection");
-    findSpan_btn.onclick = function() {
-        findAllHtmlSpanInOneSection("wrapper");
-    }
-    var findSpanList_btn = document.querySelector("#listItem");
-    findSpanList_btn.onclick = function() {
-        findListItem("wrapper", "JS");
-    }
-    var findActiveLink_btn = document.querySelector("#activeLinkContent");
-    findActiveLink_btn.onclick = function() {
-        getActiveLinkContent("wrapper");
-    }
+    // var findList_btn = document.querySelector("#allListItem");
+    // findList_btn.onclick = function() {
+    //     getAllListItem();
+    // }
+    // var findSpan_btn = document.querySelector("#allHtmlSpanInOneSection");
+    // findSpan_btn.onclick = function() {
+    //     findAllHtmlSpanInOneSection("wrapper");
+    // }
+    // var findSpanList_btn = document.querySelector("#listItem");
+    // findSpanList_btn.onclick = function() {
+    //     findListItem("wrapper", "JS");
+    // }
+    // var findActiveLink_btn = document.querySelector("#activeLinkContent");
+    // findActiveLink_btn.onclick = function() {
+    //     getActiveLinkContent("wrapper");
+    // }
+
+    var find_btns = document.querySelector("#find-btns");
+    // 事件委托
+    find_btns.addEventListener("click",function(e){
+        switch(e.target.id) {
+            case "allListItem": 
+                getAllListItem();
+                break;
+            case "allHtmlSpanInOneSection":
+                findAllHtmlSpanInOneSection("wrapper");
+                break;
+            case "listItem":
+                findListItem("wrapper", "JS");
+                break; 
+            case "activeLinkContent":
+                getActiveLinkContent("wrapper");
+                break;
+        }
+    });
 
     </script>
 </body>
