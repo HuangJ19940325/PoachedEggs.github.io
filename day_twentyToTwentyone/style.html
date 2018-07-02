@@ -123,21 +123,7 @@
     <script>
         // style
 
-        // 方法一：style对象
-        // var school_select = document.querySelector("#school-select");
-        // var company_select = document.querySelector("#company-select");
-        // document.addEventListener("click",function(e){
-        //     if(e.target.id == "school") {
-        //         school_select.style.display = "inline-block";    //style.cssText = "display:inline-block";
-        //         company_select.style.display = "none";           //style.cssText = "display:none";
-        //     } else if(e.target.id == "company"){
-        //         school_select.style.display = "none";    //style.cssText = "display:none";
-        //         company_select.style.display = "inline-block";   //style.cssText = "display:inline-block";
-        //     }
-        // });
-
-
-        //方法二addclass，removeclass
+        //addclass，removeclass
         function addClass(elem,claName) { 
             var priClassName = elem.className;
             if(priClassName === ""){
@@ -161,8 +147,8 @@
         var company_select = document.querySelector("#company-select");
         document.addEventListener("click",function(e){
             if(e.target.id == "school") {
-                addClass(school_select,"show");
-                removeClass(company_select,"show");
+                addClass(school_select,"show");   //school_select.classList.add("show");
+                removeClass(company_select,"show");  //company_select.classList.remove("show");
             } else if(e.target.id == "company"){
                 removeClass(school_select,"show");
                 addClass(company_select,"show");
@@ -172,21 +158,10 @@
         
         //style2
 
-        // var list = document.querySelectorAll("li");
-        // for (var i = i = 0, len = list.length; i < len; i++) {
-        //     list[i].onclick = function(e) {
-        //         var t = e.target;
-        //         var c = t.style.backgroundColor;
-        //         var p = document.getElementsByClassName("color-picker")[0]
-        //         p.innerHTML = c;
-        //         p.style.color = c;
-
-        //     }
-        // }
         var ul = document.querySelector(".palette");
         ul.addEventListener("click",function(e){
             var e = e || window.event;
-            var t = e.target||e.srcElement;
+            var t = e.target || e.srcElement;
             var c = t.style.backgroundColor;
             var p = document.getElementsByClassName("color-picker")[0];
             p.innerHTML = c;
@@ -198,9 +173,6 @@
         
         var cont = document.querySelector("#name");
         var submit_btn = document.querySelector("#submit-btn");
-        // submit_btn.addEventListener("click",function(){
-        //     console.log(cont.value);
-        // });
         document.addEventListener("click",function(e){
             var e = e || event;
             if(e.target.id == "submit-btn"){
@@ -210,12 +182,15 @@
         cont.addEventListener("keydown",function(e){
             var e = e || event;
             if(e.keyCode === 13) {    //按下Enter键
+                e.stopPropagation();  //e.preventDefault();
                 console.log(cont.value);
             }
             if(e.keyCode === 27) {  //按下ESC键
+                e.stopPropagation();  //e.preventDefault();
                 cont.value = "";
             }
         });
+
 
         // setTimeout
 
@@ -293,23 +268,19 @@
         
 
         //spritesAnimation
-
-        var y = 0;
-        var ypos = 0 + "px";
-        function sprites() { 
-            y = y - 480;
-            ypos = y + "px";
-            // console.log(ypos);
-            box.style.backgroundPositionY = ypos;
-            if (y <= -7680) {
-                clearInterval(tim);
-                y = 0;
-                ypos = y + "px"; 
-            }
-        }
+        
         var box = document.querySelector(".box");
         box.onclick = function() {
-            tim = setInterval("sprites()",100);
+            var y = 0;
+            var ypos = 0 + "px";
+            tim = setInterval(function(){
+                y = y - 480;
+                box.style.backgroundPositionY = y + "px";
+                if (y <= -7680) {
+                    clearInterval(tim);
+                    y = 0;
+                } 
+            },100);
         }
 
     </script>

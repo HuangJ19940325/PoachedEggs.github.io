@@ -18,6 +18,8 @@
         6.暂时不要使用 CSS animation （以后我们再学习）
     </p> 
     <script>
+        // setTimeout方法
+
         // var fadeObj = document.querySelector("#fade-obj");
         // var fadeBtn = document.querySelector("#fade-btn");
         // var O = 1;
@@ -54,42 +56,65 @@
         //     }    
         // }
 
+
+        // setInterval方法
+        // var fadeObj = document.querySelector("#fade-obj");
+        // var fadeBtn = document.querySelector("#fade-btn");
+        // var O = 1;
+        // function fadeout() {
+        //     fadeObj.style.opacity = O;
+        //     O = O - 0.05;  
+        //     if(fadeObj.style.opacity <= 0) {
+        //         clearInterval(ti);
+        //         fadeBtn.disabled = false;
+        //         fadeBtn.innerHTML = "淡入";
+        //     }
+        // }
+        // function fadein() {
+        //     fadeObj.style.opacity = O;
+        //     O = O + 0.05;
+        //     if(fadeObj.style.opacity >= 1) {
+        //         clearInterval(ti);
+        //         fadeBtn.disabled = false;
+        //         fadeBtn.innerHTML = "淡出";
+        //     }
+        // }
+        // var flag = true;
+        // fadeBtn.onclick = function(){
+        //     if(flag) {
+        //         fadeBtn.disabled = true;
+        //         fadeObj.style.opacity = O;
+        //         ti = setInterval("fadeout()",50);
+        //         flag = false;
+        //     } else {
+        //         fadeBtn.disabled = true;
+        //         fadeObj.style.opacity = O;
+        //         ti = setInterval("fadein()",50);
+        //         flag = true;
+        //     }
+        // } 
+
+
+        // 代码重构，减少重复代码
         var fadeObj = document.querySelector("#fade-obj");
         var fadeBtn = document.querySelector("#fade-btn");
-        var O = 1;
-        function fadeout() {
-            fadeObj.style.opacity = O;
-            O = O - 0.05;  
-            if(fadeObj.style.opacity <= 0) {
-                clearInterval(ti);
-                fadeBtn.disabled = false;
-                fadeBtn.innerHTML = "淡入";
-            }
+        var isFadeOut = true;   
+        var Opac,step;
+        fadeBtn.onclick = function () {
+            Opac = isFadeOut? 0 : 1;
+            step = isFadeOut? -0.05 : 0.05;
+            fadeBtn.disabled = true;
+            var ti = setInterval(function(){
+                fadeObj.style.opacity = Opac;
+                Opac = Opac + step;
+                if (Opac<=0 || Opac>=1) {
+                    fadeBtn.disabled = false;
+                    isFadeOut = !isFadeOut;
+                    clearInterval(ti);
+                }
+            },50);
+            
         }
-        function fadein() {
-            fadeObj.style.opacity = O;
-            O = O + 0.05;
-            if(fadeObj.style.opacity >= 1) {
-                clearInterval(ti);
-                fadeBtn.disabled = false;
-                fadeBtn.innerHTML = "淡出";
-            }
-        }
-        var flag = true;
-        fadeBtn.onclick = function(){
-            if(flag) {
-                fadeBtn.disabled = true;
-                fadeObj.style.opacity = O;
-                ti = setInterval("fadeout()",50);
-                flag = false;
-            } else {
-                fadeBtn.disabled = true;
-                fadeObj.style.opacity = O;
-                ti = setInterval("fadein()",50);
-                flag = true;
-            }
-        }    
-
     </script>
 </body>
 </html>
