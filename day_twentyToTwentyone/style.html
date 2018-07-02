@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+    <style>
+        html,body {
+            margin: 0;
+            padding: 0;
+        }
+        body > div {
+            border-bottom: #194738 3px solid;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        p {
+            color: darkgrey;
+        }
+        /* 1 */
+        select {
+            display: none;
+        }
+        .show {
+            display: inline-block;
+        }
+        .hidden {
+            display: none;
+        }
+        /* 2 */
+        .palette {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .palette li {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .box {
+            width: 480px;
+            height: 480px;
+            border: 1px solid black;
+            background-color: pink;
+            background-image: url(http://ife.baidu.com/2016/static/img/erik_ce204002.jpg);
+            background-repeat: no-repeat;
+            /* background-position: left top; */
+            /* background-position: 0px -2000px; */
+        }
+    </style>
+</head>
+<body> 
+    <div class="style">
+        <label for="school-select">
+            <input id="school" name="status" type="radio">
+            School
+        </label>
+        <label for="company-select">
+            <input id="company" name="status" type="radio">
+            Company
+        </label>
+
+        <select id="school-select">        
+            <option>北京邮电大学</option>
+            <option>黑龙江大学</option>
+            <option>华中科技大学</option>
+        </select>
+
+        <select id="company-select">        
+            <option>百度</option>
+            <option>爱奇艺</option>        
+        </select>
+
+        <p>当用户选择了 School 的单选框时，显示 School 的下拉选项，隐藏 Company 的下拉选项</p>
+        <p>当用户选择了 School 的单选框时，显示 Company 的下拉选项，隐藏 School 的下拉选项</p>
+    </div>           
+    
+    <div class="style2">
+            <ul class="palette">
+                <li style="background-color:crimson"></li>
+                <li style="background-color:bisque"></li>
+                <li style="background-color:blueviolet"></li>
+                <li style="background-color:coral"></li>
+                <li style="background-color:chartreuse"></li>
+                <li style="background-color:darkolivegreen"></li>
+                <li style="background-color:cyan"></li>
+                <li style="background-color:#194738"></li>        
+            </ul>
+        
+            <h3 class="color-picker"></h3>
+        
+            <p>点击某一个 Li 标签时，将 Li 的背景色显示在 P 标签内，并将 P 标签中的文字颜色设置成 Li 的背景色</p>
+    </div>
+
+    <div class="event">
+        <input id="name" type="text">    
+        <button id="submit-btn">Submit</button>
+        <p>当点击按钮 submit-btn 时，在console中输出 name 中的内容</p>
+        <p>在输入过程中，如果按回车键，则同样执行上一条的需求</p>
+        <p>在输入过程中，如果按 ESC 键，则把输入框中的内容清空</p>
+    </div>
+
+    <div class="setTimeout">
+        <div id="fade-obj" style="width:300px;height:300px;background:#000"></div>
+        <button id="fade-btn">淡出</button>
+        <p>
+            1.点击按钮时，开始改变 fade-obj 的透明度，开始一个淡出（逐渐消失）动画，直到透明度为0 <br>
+            2.在动画过程中，按钮的状态变为不可点击 <br>
+            3.在动画结束后，按钮状态恢复，且文字变成“淡入” <br>
+            4.在 按钮显示 淡入 的状态时，点击按钮，开始一个“淡入”（逐渐出现）的动画，和上面类似按钮不可点，直到透明度完全不透明 <br>
+            5.淡入动画结束后，按钮文字变为“淡出” <br>
+            6.暂时不要使用 CSS animation （以后我们再学习）
+        </p> 
+    </div>
+
+    <div class="spritesAnimation">
+        <div class="box"></div>
+        <p>点击图像，实现一个帧动画</p>
+    </div>
+    <script>
+        // style
+
+        // 方法一：style对象
+        // var school_select = document.querySelector("#school-select");
+        // var company_select = document.querySelector("#company-select");
+        // document.addEventListener("click",function(e){
+        //     if(e.target.id == "school") {
+        //         school_select.style.display = "inline-block";    //style.cssText = "display:inline-block";
+        //         company_select.style.display = "none";           //style.cssText = "display:none";
+        //     } else if(e.target.id == "company"){
+        //         school_select.style.display = "none";    //style.cssText = "display:none";
+        //         company_select.style.display = "inline-block";   //style.cssText = "display:inline-block";
+        //     }
+        // });
+
+
+        //方法二addclass，removeclass
+        function addClass(elem,claName) { 
+            var priClassName = elem.className;
+            if(priClassName === ""){
+                elem.className = claName;
+            } else if(priClassName.indexOf(claName) !== -1) {
+                elem.className = elem.className;  //如果原函数中已经有了要添加的类名，则不添加
+            } else {
+                elem.className = elem.className +" "+ claName;
+            }        
+            
+        }
+        function removeClass(elem,claName) {
+            var priClassName = elem.className;
+            var strNumAt = priClassName.indexOf(claName);
+            if(strNumAt !== -1) {    
+                elem.className = priClassName.replace(claName,""); //返回一个新的字符串
+            }
+        }
+
+        var school_select = document.querySelector("#school-select");
+        var company_select = document.querySelector("#company-select");
+        document.addEventListener("click",function(e){
+            if(e.target.id == "school") {
+                addClass(school_select,"show");
+                removeClass(company_select,"show");
+            } else if(e.target.id == "company"){
+                removeClass(school_select,"show");
+                addClass(company_select,"show");
+            }
+        });
+
+        
+        //style2
+
+        // var list = document.querySelectorAll("li");
+        // for (var i = i = 0, len = list.length; i < len; i++) {
+        //     list[i].onclick = function(e) {
+        //         var t = e.target;
+        //         var c = t.style.backgroundColor;
+        //         var p = document.getElementsByClassName("color-picker")[0]
+        //         p.innerHTML = c;
+        //         p.style.color = c;
+
+        //     }
+        // }
+        var ul = document.querySelector(".palette");
+        ul.addEventListener("click",function(e){
+            var e = e || window.event;
+            var t = e.target||e.srcElement;
+            var c = t.style.backgroundColor;
+            var p = document.getElementsByClassName("color-picker")[0];
+            p.innerHTML = c;
+            p.style.color = c;
+        });
+        
+
+        // event
+        
+        var cont = document.querySelector("#name");
+        var submit_btn = document.querySelector("#submit-btn");
+        // submit_btn.addEventListener("click",function(){
+        //     console.log(cont.value);
+        // });
+        document.addEventListener("click",function(e){
+            var e = e || event;
+            if(e.target.id == "submit-btn"){
+                console.log(cont.value);
+            } 
+        });
+        cont.addEventListener("keydown",function(e){
+            var e = e || event;
+            if(e.keyCode === 13) {    //按下Enter键
+                console.log(cont.value);
+            }
+            if(e.keyCode === 27) {  //按下ESC键
+                cont.value = "";
+            }
+        });
+
+        // setTimeout
+
+        // var fadeObj = document.querySelector("#fade-obj");
+        // var fadeBtn = document.querySelector("#fade-btn");
+        // var O = 1;
+        // function fadeout() {
+        //     fadeObj.style.opacity = O;
+        //     O = O - 0.05;
+        //     var t = setTimeout("fadeout()",50);
+        //     if(fadeObj.style.opacity <= 0) {
+        //         clearTimeout(t);
+        //         fadeBtn.disabled = false;
+        //         fadeBtn.innerHTML = "淡入";
+        //     }
+        // }
+        // function fadein() { 
+        //     fadeObj.style.opacity = O;
+        //     O = O + 0.05;
+        //     var t = setTimeout("fadein()",50);
+        //     if(fadeObj.style.opacity >= 1) {
+        //         clearTimeout(t);
+        //         fadeBtn.disabled = false;
+        //         fadeBtn.innerHTML = "淡出";
+        //     }
+        // }
+        // var flag = true;
+        // fadeBtn.onclick = function() {
+        //     if(flag) {
+        //         fadeout();
+        //         fadeBtn.disabled = true;
+        //         flag = false;
+        //     } else {
+        //         fadein();
+        //         fadeBtn.disabled = true;
+        //         flag = true;
+        //     }    
+        // }
+
+        var fadeObj = document.querySelector("#fade-obj");
+        var fadeBtn = document.querySelector("#fade-btn");
+        var O = 1;
+        function fadeout() {
+            fadeObj.style.opacity = O;
+            O = O - 0.05;  
+            if(fadeObj.style.opacity <= 0) {
+                clearInterval(ti);
+                fadeBtn.disabled = false;
+                fadeBtn.innerHTML = "淡入";
+            }
+        }
+        function fadein() {
+            fadeObj.style.opacity = O;
+            O = O + 0.05;
+            if(fadeObj.style.opacity >= 1) {
+                clearInterval(ti);
+                fadeBtn.disabled = false;
+                fadeBtn.innerHTML = "淡出";
+            }
+        }
+        var flag = true;
+        fadeBtn.onclick = function(){
+            if(flag) {
+                fadeBtn.disabled = true;
+                fadeObj.style.opacity = O;
+                ti = setInterval("fadeout()",50);
+                flag = false;
+            } else {
+                fadeBtn.disabled = true;
+                fadeObj.style.opacity = O;
+                ti = setInterval("fadein()",50);
+                flag = true;
+            }
+        }    
+        
+
+        //spritesAnimation
+
+        var y = 0;
+        var ypos = 0 + "px";
+        function sprites() { 
+            y = y - 480;
+            ypos = y + "px";
+            // console.log(ypos);
+            box.style.backgroundPositionY = ypos;
+            if (y <= -7680) {
+                clearInterval(tim);
+                y = 0;
+                ypos = y + "px"; 
+            }
+        }
+        var box = document.querySelector(".box");
+        box.onclick = function() {
+            tim = setInterval("sprites()",100);
+        }
+
+    </script>
+</body>
+</html>

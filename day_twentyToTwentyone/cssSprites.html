@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .roundedBox {position:relative; padding:17px; margin:10px 0;}
+        .corner {position:absolute; width:17px; height:17px;}
+        .topLeft {top:0; left:0; background-position:-8px -5px;} 
+        .topRight {top:0; right:0; background-position:-535px -5px;} 
+        .bottomLeft {bottom:0; left:0; background-position:-8px -301px;}
+        .bottomRight {bottom:0; right:0; background-position:-535px -301px;}
+        #type1 {background-color:rgb(249,235,199);}
+        #type1 .corner {background-image:url(../images/flex-modle.png);}
+    </style>
+</head>
+<body>
+    <div class="roundedBox" id="type1">
+        <strong>My content in roundedBox Type 1</strong>
+        <div class="corner topLeft"></div>
+        <div class="corner topRight"></div>
+        <div class="corner bottomLeft"></div>
+        <div class="corner bottomRight"></div>
+    </div>
+</body>
+</html>

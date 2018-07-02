@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 480px;
+            height: 480px;
+            border: 1px solid black;
+            background-color: pink;
+            background-image: url(http://ife.baidu.com/2016/static/img/erik_ce204002.jpg);
+            background-repeat: no-repeat;
+            /* background-position: left top; */
+            /* background-position: 0px -2000px; */
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="box"></div>
+    <script>
+        var y = 0;
+        var ypos = 0 + "px";
+        function sprites() { 
+            y = y - 480;
+            ypos = y + "px";
+            console.log(ypos);
+            box.style.backgroundPositionY = ypos;
+            if (y <= -7680) {
+                clearInterval(t);
+                y = 0;
+                ypos = y + "px"; 
+            }
+        }
+        var box = document.querySelector(".box");
+        box.onclick = function() {
+            t = setInterval("sprites()",100);
+        }
+        
+    </script>
+</body>
+</html>
