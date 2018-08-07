@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="time"></p>
+    <script>
+        // 小时、分钟、秒补齐
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+        // 输出格式为：YYYY 年 MM 月 DD 日 星期 D HH:mm:ss
+        function form1(D) {
+            var dates = datesForm1(D);
+            var weeks = weeksForm1(D);
+            var times = timesForm1(D);
+            //
+            var outputForm = dates + " " + weeks + " " + times;
+            return outputForm;
+        }
+        function datesForm1(D) {
+            var y = D.getUTCFullYear();
+            var m = D.getUTCMonth()+1;
+            var d = D.getUTCDate();
+            var dates = y + "年" + checkTime(m) + "月" + checkTime(d) + "日";
+            return dates;
+        }
+        function weeksForm1(D) {
+            var weekday = new Array();
+            weekday[0] = "星期日";
+            weekday[1] = "星期一";
+            weekday[2] = "星期二";
+            weekday[3] = "星期三";
+            weekday[4] = "星期四";
+            weekday[5] = "星期五";
+            weekday[6] = "星期六";
+            return weekday[D.getDay()];
+        }
+        function timesForm1(D) {
+            var h = D.getHours();
+            var m = D.getMinutes();
+            var s = D.getSeconds();
+            var times = checkTime(h) + ":" + checkTime(m) + ":" + checkTime(s);
+            return times;
+        }
+
+
+
+        // 输出格式变为：2008-10-10 Monday 07:10:30 PM
+        function form2(D) { 
+            var dates = datesForm2(D);
+            var weeks = weeksForm2(D);
+            var times = timesForm2(D);
+            var outputForm = dates + " " + weeks + " " + times;
+            return outputForm;
+        }
+        function datesForm2(D) {
+            var y = D.getUTCFullYear();
+            var m = D.getUTCMonth()+1;
+            var d = D.getUTCDate();
+            var dates = y + "-" + checkTime(m) + "-" + checkTime(d);
+            return dates;
+        }
+        function weeksForm2(D) {
+            var weekday = new Array();
+            weekday[0] = "Sunday";
+            weekday[1] = "Monday";
+            weekday[2] = "Tuesday";
+            weekday[3] = "Wednesday";
+            weekday[4] = "Thursday";
+            weekday[5] = "Friday";
+            weekday[6] = "Saturday";
+            return weekday[D.getDay()];
+        }
+        function timesForm2(D) {
+            var h = D.getHours();
+            var m = D.getMinutes();
+            var s = D.getSeconds();
+            // 12小时显示时间 
+            if (h>=12) {
+                h = h-12;
+                var times = checkTime(h) + ":" + checkTime(m) + ":" + checkTime(s) + " PM";
+            } else {
+                var times = checkTime(h) + ":" + checkTime(m) + ":" + checkTime(s) + " AM";
+            }
+            return times;
+        }
+
+
+
+        // 显示规定格式的日期
+        function show() {
+            var myDate = new Date();
+            var result = document.querySelector("#time");
+            result.innerHTML = form1(myDate) + "<br>" + form2(myDate);
+        }
+
+        function update() {
+            setInterval('show()', 1000);
+        }
+
+        update();
+
+        
+
+
+    </script>
+</body>
+
+</html>

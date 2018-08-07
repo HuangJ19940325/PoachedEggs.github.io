@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>请按F12</p>
+    <script>
+        /*
+        实现一个字符串头尾去除空格的函数
+        注意需要去除的空格，包括全角、半角空格
+        暂时不需要学习和使用正则表达式的方式
+        */
+        function diyTrim(str) {
+            var result = "";
+            var newWord = "";
+            // 去头空格
+            if (str[0]===" "||str[0]==="　") {
+                var i=0;
+                do {
+                    newWord = str.substring(i+1);
+                    i++;
+                } while (str[i]===" "||str[i]==="　");
+                result = newWord;    
+            }
+            // 去尾空格
+            if (str.lastIndexOf(" ")==str.length-1||str.lastIndexOf("　")==str.length-1) {
+                var  j = str.length-1;
+                do {
+                    newWord = str.substring(i,j);
+                    j--;
+                } while (str[j]===" "||str[j]==="　");  //(str.charCodeAt(j)>=65&&str.charCodeAt(j)<=90)||(str.charCodeAt(j)>=97&&str.charCodeAt(j)<=122)
+                result = newWord;   
+            }
+            return result;
+        }
+        // 测试用例
+        console.log(diyTrim(' a f b    ')); // ->a f b
+        console.log(diyTrim('    ffdaf    ')); // ->ffdaf
+        console.log(diyTrim('1    ')); // ->1
+        console.log(diyTrim('　　f')); // ->f
+        console.log(diyTrim('  　  a f b 　　 ')); // ->a f b
+        console.log(diyTrim(' ')); // ->
+        console.log(diyTrim('　')); // ->
+        console.log(diyTrim('')); // ->
+
+        /*
+        去掉字符串str中，连续重复的地方
+        */
+        function removeRepetition(str) {
+            var result = "a";
+            var newWord = "";
+            var i = 0;
+            for (let index = 0; index < str.length; ) {
+                var sigleWord = str[index];
+                index = index+1;
+                if (index < str.length) {
+                    while (str.charCodeAt(index-1)===str.charCodeAt(index)) {
+                        sigleWord = str[index];
+                        index++;
+                        if (index >= str.length) {
+                            break;
+                        }
+                    }
+                    newWord = newWord + sigleWord;   
+                } else {
+                    newWord = newWord + sigleWord;
+                    break; 
+                }    
+            } 
+            result = newWord;
+            return result;
+        }
+
+        // 测试用例
+        console.log(removeRepetition("aaa")); // ->a
+        console.log(removeRepetition("abbba")); // ->aba
+        console.log(removeRepetition("aabbaabb")); // ->abab
+        console.log(removeRepetition("")); // ->
+        console.log(removeRepetition("abc")); // ->abc
+    </script>
+</body>
+</html>

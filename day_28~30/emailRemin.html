@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            
+        }
+        ul li {
+            margin: 0;
+            border: 1px solid green;
+            width: 171px;
+            background-color: transparent;
+        }
+        ul li:hover {
+            cursor: pointer;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <input id="email-input" type="text">
+        <ul id="email-sug-wrapper" class="email-sug"></ul>
+    </div>
+    <script>
+        window.onload = function () {
+            emailBox.focus(); // 一进入页面就将焦点放在输入框中
+        }
+        // 邮箱后缀List参考
+        var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+        var emailBox = document.querySelector("#email-input");
+        var lis = document.querySelector("#email-sug-wrapper"); //静态获取
+        var items = lis.getElementsByTagName("li"); //动态获取
+        // var items = lis.querySelectorAll("li"); ///不能静态获取（快照）
+        var nowSelectTipIndex = 0;
+        // 上、下键监听
+        emailBox.onkeydown = function (e) {
+            var oEvent = e||event;
+            if (oEvent.keyCode == 38||oEvent.keyCode == 40) {
+                oEvent.preventDefault(); // 防止按上、下键时光标移动
+            }
+        }
+        // 实时提示框
+        emailBox.oninput = function (e) {  // 用户输入内容时，执行匿名函数
+            var oEvent = e||event;
+            if (oEvent.keyCode != 38 && oEvent.keyCode != 40 && oEvent.keyCode != 13) {
+                // 获取用户输入内容
+                var myEmailText = getInputText(emailBox);
+                // 输入内容去空格
+                var noSpaceText = deletAfterSpace(deletBeforeSpace(myEmailText));
+                // 判断是否需要显示提示框
+                if (noSpaceText === "") {
+                    // 隐藏提示框
+                    hideTooltip(lis);
+                } else {
+                    // 生成提示内容
+                    let remTexts = generateTooltipCont(noSpaceText);
+                    // 将提示内容添加到email-sug-wrapper中
+                    addLiIntoUL(remTexts,lis);
+                    // 显示提示框
+                    showTooltip(lis);
+                    // 点击提示框的一项内容时，内容放入input
+                    for (let i = 0; i < items.length; i++) { // 使用let声明，每次循环都会生成一个新的块及作用域，i对每个作用域进行绑定
+                        //(function (i) {                    // 无需使用自执行函数
+                            items[i].onclick = function () {
+                                // li内容解码
+                                var decodeText = htmlDecode(items[i].innerHTML);
+                                // li内容放入input
+                                emailBox.value = decodeText; 
+                                // 删除提示框
+                                deletTooltipCont(lis);
+                                emailBox.focus();
+                            }
+                        //})(i);       
+                    }
+                    // 设置默认选项
+                    nowSelectTipIndex = 0;
+                    var opt = items[nowSelectTipIndex];  
+                    opt.style.backgroundColor = "red";
+                }    
+            }
+        }
+        
+        // 上、下、Enter键监听
+        emailBox.onkeyup = function (e) {
+            var oEvent = e||event;
+            var pos = this.value.length; //光标所在的位置  输入框内容长度
+            // 找到当前选中选项
+            var opt = items[nowSelectTipIndex];
+            if (oEvent.keyCode == 38) { // 上键 up Arrow
+                // this.setSelectionRange(pos,pos);
+                opt.style.backgroundColor = ""; //删掉原来选项的背景色
+                opt = upChange(items);
+                opt.style.backgroundColor = "red"; // 为新选项设置背景色
+            }
+            if (oEvent.keyCode == 40) { // 下键 down Arrow
+                // this.setSelectionRange(pos,pos);
+                opt.style.backgroundColor = ""; //删掉原来选项的背景色
+                opt = downChange(items);
+                opt.style.backgroundColor = "red"; // 为新选项设置背景色
+            }
+            if (oEvent.keyCode == 13) { // Enter键
+                var decodeText = htmlDecode(opt.innerHTML); //字符实体解码
+                this.value = decodeText; // li内容放入input
+                deletTooltipCont(lis);
+            }
+            if (oEvent.keyCode == 27) {  // ESC键
+                this.setSelectionRange(0,pos); // 全选用户输入
+            }
+        }
+        
+        
+        // 获取用户输入内容
+        function getInputText(userInput) {
+            return userInput.value;
+        }
+        // 对输入内容去前空格
+        function deletBeforeSpace(text) {
+            var newText = text;
+            var i = 0;
+            while (text[i] == " "||text[i] == "　") {
+                if (i == text.length-1) {
+                    newText = "";
+                    break;
+                }
+                newText = text.substring(i+1);
+                i++;
+            }
+            return newText;
+        }
+        // 对输入内容去后空格
+        function deletAfterSpace(text) {
+            var newText = text;
+            let i = text.length-1;
+            while(i>=0 && (text[i] == " "||text[i] == "　")) {
+                if (i == 0) {
+                    newText = "";
+                    break;
+                }
+                newText = text.substring(0,i);
+                i--;
+            }
+            return newText;
+        }
+        // 生成指定内容的提示框
+        function generateTooltipCont(text) {
+            // 输入内容Entity编码
+            var EntityText = htmlEncode(text);
+            // 截取文本@符号之前,之后的内容
+            var beforeAt = EntityText;
+            var afterAt = "";
+            var iAt = EntityText.indexOf("@");
+            if (iAt !== -1) {  //存在@符号
+                beforeAt = EntityText.substring(0,iAt);
+                afterAt = EntityText.substring(iAt+1);
+            }
+            // 遍历postfixList
+            var itemText = [];
+            for (let i = 0; i < postfixList.length; i++) {
+                let serverName = postfixList[i];
+                //判断postfixList[i]是否包含输入信息
+                if (serverName.substring(0,afterAt.length) === afterAt) {      
+                    let text = beforeAt+"@"+postfixList[i];
+                    itemText.push(text);
+                }       
+            }   
+            return itemText;
+        } 
+        // 将提示内容添加到ul
+        function addLiIntoUL(texts,ulNode) {
+            deletTooltipCont(ulNode);
+            for (let i = 0; i < texts.length; i++) {
+                var item = document.createElement("li");
+                item.innerHTML = texts[i];
+                ulNode.appendChild(item);  //ulNode的引用被更新了，就算之前是静态获取，现在也更新了
+            }
+        }
+        // 删除ul提示框所有li子节点
+        function deletTooltipCont(ulNode) {
+            while (ulNode.childNodes.length>0) {
+                ulNode.removeChild(ulNode.childNodes[0]);
+            }     
+        }
+        // 显示提示框
+        function showTooltip(ulNode) {
+            ulNode.style.display = "block"; 
+        }
+        // 隐藏提示框
+        function hideTooltip(ulNode) {
+            ulNode.style.display = "none"; 
+        }
+
+        // HTML编码  > --> &gt;  Entity编码，防止XSS攻击
+        function htmlEncode(html) {
+            //1.首先动态创建一个容器标签元素，如DIV
+            var temp = document.createElement ("div");
+            //2.然后将要转换的字符串设置为这个元素的innerText(ie支持)或者textContent(火狐，google支持)
+            (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+            //3.最后返回这个元素的innerHTML，即得到经过HTML编码转换的字符串了
+            var output = temp.innerHTML;
+            temp = null;
+            return output;
+        }
+        // text解码  &gt; --> >
+        function htmlDecode(text){
+            //1.首先动态创建一个容器标签元素，如DIV
+            var temp = document.createElement("div");
+            //2.然后将要转换的字符串设置为这个元素的innerHTML(ie，火狐，google都支持)
+            temp.innerHTML = text;
+            //3.最后返回这个元素的innerText(ie支持)或者textContent(火狐，google支持)，即得到经过HTML解码的字符串了。
+            var output = temp.innerText || temp.textContent;
+            temp = null;
+            return output;
+        }
+
+        // 选项向上改变
+        function upChange(liNodes) { 
+            if (nowSelectTipIndex == 0) {  // 当前选项是第一个元素
+                nowSelectTipIndex = liNodes.length-1;  // 调到最后一个元素  
+            } else { // 当前选项不是第一个元素
+                nowSelectTipIndex--; // 调到上一个元素
+            }
+            return liNodes[nowSelectTipIndex];
+        }
+        // 选项向下改变
+        function downChange(liNodes) {
+            if (nowSelectTipIndex == liNodes.length-1) {  // 当前选项是最后一个元素
+                nowSelectTipIndex = 0;  // 调到第一个元素
+            } else { // 当前选项不是最后一个元素
+                nowSelectTipIndex++; // 调到下一个元素
+            }    
+            return liNodes[nowSelectTipIndex];
+        }  
+    </script>
+</body>
+</html>

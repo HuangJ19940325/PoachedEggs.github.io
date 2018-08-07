@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>请按F12</p>
+    <ul>
+        <li>
+            1.num-1:men1
+            <ul>
+                <li>3.num1:men1-1</li>
+                <li>
+                    4.num1:men1-2
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li>7.num4:men1-2-3</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            2.num-1:men2
+            <ul>
+                <li>5.num2:men2-1</li>
+                <li>
+                    6.num2:men2-2
+                    <ul>
+                        <li>8.num6:men2-2-1</li>
+                        <li></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <script>
+        var arr1 = [43, 54, 4, -4, 84, 100, 58, 27, 140];
+        // 将上面数组分别按从大到小以及从小到大进行排序后在console中输出
+        arr1.sort(function (a, b) {
+            return a - b;
+        });
+        console.log(arr1);
+
+        var arr2 = ['apple', 'dog', 'cat', 'car', 'zoo', 'orange', 'airplane'];
+        // 将上面数组分别按字母顺序a-z及z-a进行排序，在console中输出
+        // 使用映射改变排序
+        var mapped = arr2.map(function (elem, i) {
+            return { index: i, value: elem };
+        });
+        mapped.sort(function (a, b) {
+            if (a < b) {      //a-z排序
+                return -1;
+            }
+            if (a > b) {
+                return 1;
+            }
+            return -1;
+        });
+        var result = mapped.map(function (elem) {
+            return arr2[elem.index];
+        });
+        console.log(result);
+        arr2.sort(function (a, b) {
+            if (a < b) {  //z-a排序
+                return 1;
+            }
+            if (a > b) {
+                return -1;
+            }
+            return -1;
+        });
+        console.log(arr2);
+
+        var arr3 = [[10, 14], [16, 60], [7, 44], [26, 35], [22, 63]];
+        // 将上面的二维数组，按照每个元素中第二个数从大到小的顺序进行排序输出
+        arr3.sort(function (a, b) {
+            return b[1] - a[1];
+        });
+        console.log(arr3);
+
+        var arr4 = [
+            {
+                id: 1,
+                name: 'candy',
+                value: 40
+            }, {
+                id: 2,
+                name: 'Simon',
+                value: 50
+            }, {
+                id: 3,
+                name: 'Tony',
+                value: 45
+            }, {
+                id: 4,
+                name: 'Annie',
+                value: 60
+            }
+        ];
+        // 将上面数组分别按元素对象的value值从小到大进行排序后输出
+        arr4.sort(function (a, b) {
+            return a.value - b.value;
+        });
+        console.log(arr4);
+
+
+
+        var scoreObject = {
+            "Tony": {
+                "Math": 95,
+                "English": 79,
+                "Music": 68
+            },
+            "Simon": {
+                "Math": 100,
+                "English": 95,
+                "Music": 98
+            },
+            "Annie": {
+                "Math": 54,
+                "English": 65,
+                "Music": 88
+            }
+        }
+        // 如上有一个用来存储学习成绩的对象，编写一个函数，将其转为二维数组
+        var scoreArr = [];
+        var i = 0
+        for (const key in scoreObject) {
+            scoreArr[i] = [];
+            scoreArr[i][0] = key;
+            var j = 0;
+            // if (!scoreObject.hasOwnProperty(key)) {
+            //     continue;   
+            // }
+            for (const keyin in scoreObject[key]) { //不能用scoreObject.key
+                // if (!key.hasOwnProperty(keyin)) {
+                //     continue;      
+                // }
+                scoreArr[i][j + 1] = scoreObject[key][keyin];
+                j++;
+            }
+            i++;
+        }
+        console.log(scoreArr);
+
+
+        var menuArr = [
+            [1, "Area1", -1],
+            [2, "Area2", -1],
+            [3, "Area1-1", 1],
+            [4, "Area1-2", 1],
+            [5, "Area2-1", 2],
+            [6, "Area2-2", 2],
+            [7, "Area1-2-3", 4],
+            [8, "Area2-2-1", 6],
+        ];
+        
+        // 如上有一个用来存储多级菜单数据的数组，编写一个函数，将其转为如下的对象
+        var menuObject = {};
+        function arrToObj(arr) {
+            var menuId = arr[0][0];
+            var menuName = arr[0][1];
+            var menuLayer = arr[0][2];
+            menuObject[menuId] = {};
+            menuObject[menuId].name = menuName;
+            var j = 0;
+            var lay2 = [];
+            for (let i = 1; i < arr.length; i++) {
+                menuId = arr[i][0];
+                var menuCurrName = arr[i][1];
+                var menuBeforeName = arr[i-1][1];
+                menuLayer = arr[i][2];
+                var layerArr = menuCurrName.split("-");
+                if (layerArr.length==1) {
+                    // 第一层
+                    menuObject[menuId] = {};
+                    menuObject[menuId].name = menuCurrName;
+                    continue;
+                }
+                if (layerArr.length==2) {
+                    // 第二层
+                    for (const key in menuObject) { 
+                        if (layerArr[0] == menuObject[key].name) {
+                            if (!menuObject[key].subMenu) {
+                                menuObject[key].subMenu = new Object(); 
+                            }
+                            menuObject[key].subMenu[menuId] = {};
+                            lay2[j] = menuObject[key].subMenu[menuId];
+                            j++;
+                            menuObject[key].subMenu[menuId].name = menuCurrName;
+                            break;                            
+                        }
+                    }
+                    continue;
+                }
+                if (layerArr.length==3) {
+                    // 第三层
+                    for (let index = 0; index < lay2.length; index++) {
+                        lay2Arr = lay2[index].name.split('-');
+                        if (layerArr[0] == lay2Arr[0]&&layerArr[1] == lay2Arr[1]) {
+                            if (!lay2[index].subMenu) {
+                                lay2[index].subMenu = new Object(); 
+                            }
+                            lay2[index].subMenu[menuId] = {};
+                            lay2[index].subMenu[menuId].name = menuCurrName;
+                        }
+                        
+                    }    
+                }
+            }
+        }
+        arrToObj(menuArr);
+        console.log(menuObject);
+
+    </script>
+</body>
+
+</html>

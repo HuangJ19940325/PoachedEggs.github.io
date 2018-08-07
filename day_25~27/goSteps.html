@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function isRealNum(val) {
+            // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
+            if (val === "" || val == null) {
+                return false;
+            }
+            if (!isNaN(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        function Go() {
+            console.log("Go");
+        }
+         
+        function GoSteps(n) {
+            //判断n是否为数字
+            if (typeof(n) == "undefined" || n === "") {
+                Go();
+                return true;
+            }
+            
+            if (n === null || n === false || isNaN(n)) {
+                console.log("Go 0 次");
+                return false;
+            }
+            // if (n === "") {
+            //     Go();
+            // }
+            if (n === true) {
+                Go();
+                return true;
+            }
+            // 判断n是否为正整数
+            if (n <= 0) {
+                console.log("Go 0 次");
+                return false;
+            }
+            // 执行n次Go函数
+            var intN = parseInt(n);  //intN >= 0
+            while (intN--) {
+                Go();
+                
+            }
+        }
+
+        GoSteps(10); // Go 10次
+        GoSteps(1); // Go 1次
+        GoSteps(); // Go 1次，认为缺少参数时，默认参数为1
+        GoSteps(0);  // 0次
+        GoSteps(-1);  // 0次
+        GoSteps(1.4);  // Go 1次
+        GoSteps(1.6);  // Go 1次
+        GoSteps(-1);  // 0次
+        GoSteps(true);  // Go 1次
+        GoSteps(false);  // 0次
+        GoSteps("Test");  // 0次
+        GoSteps(NaN);  // 0次
+        GoSteps(null);  // 0次
+    </script>
+</body>
+
+</html>
