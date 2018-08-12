@@ -22,6 +22,9 @@
             cursor: pointer;
             background-color: aqua;
         }
+        li.selected {
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -30,20 +33,21 @@
         <ul id="email-sug-wrapper" class="email-sug"></ul>
     </div>
     <script>
+        /**
+        * @file JSDoc
+        */
         let postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
         let emailBox = document.querySelector("#email-input");
-        let lis = document.querySelector("#email-sug-wrapper"); //静态获取
+        let lis = document.getElementById("email-sug-wrapper"); //动态比今天快
         let items = lis.getElementsByTagName("li"); //动态获取
         // let items = lis.querySelectorAll("li"); ///不能静态获取（快照）
         let nowSelectTipIndex = 0;
 
 
-        window.onload = function () {
-            emailBox.focus(); // 一进入页面就将焦点放在输入框中
-        }
-
+        emailBox.focus(); // 一进入页面就将焦点放在输入框中
         
-        // 上、下键监听
+
+        // 上、下键监听  防止按上下键时光标移动
         emailBox.addEventListener("keydown",function (e) {
             let oEvent = e||event;
             if (oEvent.keyCode == 38||oEvent.keyCode == 40) {
@@ -58,43 +62,50 @@
             if (oEvent.keyCode != 38 && oEvent.keyCode != 40 && oEvent.keyCode != 13) {
                 // 获取用户输入内容
                 let myEmailText = getInputText(this);
-                // 输入内容去空格
-                let noSpaceText = deletAfterSpace(deletBeforeSpace(myEmailText)); //str.trim()
-                // 判断是否需要显示提示框
-                if (noSpaceText === "") {
+                // 生成提示内容
+                let remTexts = generateTooltipCont(myEmailText);
+                // 将提示内容添加到email-sug-wrapper中
+                addLiIntoUL(remTexts);
+                // 控制提示框的显示与隐藏
+                if (myEmailText === "") {
                     // 隐藏提示框
-                    hideTooltip(lis);
+                    hideTooltip();
+                    // 移除按键时的选项选择
+                    this.removeEventListener("keyup",keySelect);
+                    lis.removeEventListener("click",mouseConfirm);
                 } else {
-                    // 生成提示内容
-                    let remTexts = generateTooltipCont(noSpaceText);
-                    // 将提示内容添加到email-sug-wrapper中
-                    addLiIntoUL(remTexts,lis);
                     // 显示提示框
-                    showTooltip(lis);
-                    // 点击提示框的一项内容时，内容放入input
-                    for (let i = 0; i < items.length; i++) { // 使用let声明，每次循环都会生成一个新的块及作用域，i对每个作用域进行绑定
-                        //(function (i) {                    // 无需使用自执行函数
-                            items[i].onclick = function () {
-                                // li内容解码
-                                let decodeText = htmlDecode(items[i].innerHTML);
-                                // li内容放入input
-                                emailBox.value = decodeText; 
-                                // 删除提示框
-                                deletTooltipCont(lis);
-                                emailBox.focus();
-                            }
-                        //})(i);       
-                    }
-                    // 设置默认选项
+                    showTooltip();
+                    // 重置默认选项
                     nowSelectTipIndex = 0;
                     let opt = items[nowSelectTipIndex];  
                     opt.style.backgroundColor = "red";
+                    // 按键监听  
+                    this.addEventListener("keyup",keySelect);  // 按上下Enter键，提示确认项选择
+                    // 点击监听   
+                    lis.addEventListener("click",mouseConfirm);  // 点击提示框的一项内容时，内容放入input
                 }    
             }
         });
+
+
+        // 内容放入input
+        function mouseConfirm(e) {
+            let oEvent = e||event;
+            let target = oEvent.target || oEvent.srcElement;
+            // li内容解码
+            let decodeText = htmlDecode(target.innerHTML);
+            // li内容放入input
+            emailBox.value = decodeText; 
+            // 删除提示框
+            deletTooltipCont();
+            // emailBox聚焦
+            emailBox.focus();
+        }
+
         
-        // 上、下、Enter键监听
-        emailBox.addEventListener("keyup",function (e) {
+        // 上、下、Enter键监听，选择提示项
+        function keySelect(e) {
             const oEvent = e||event;
             let pos = this.value.length; //光标所在的位置  输入框内容长度
             // 找到当前选中选项
@@ -102,34 +113,36 @@
             switch(oEvent.keyCode) {
                 case 38:  // 上键 up 
                     // this.setSelectionRange(pos,pos);
-                    opt.style.backgroundColor = ""; // 删掉原来选项的背景色
-                    opt = upChange(items);
-                    opt.style.backgroundColor = "red"; // 为新选项设置背景色
+                    opt.style.backgroundColor = ""; // 删掉原来选项的背景色 opt.classList.remove("selected")
+                    opt = upChange();
+                    opt.style.backgroundColor = "red"; // 为新选项设置背景色 opt.classList.add("selected")
                     break;
                 case 40: // 下键 down Arrow
                     // this.setSelectionRange(pos,pos);
                     opt.style.backgroundColor = ""; // 删掉原来选项的背景色
-                    opt = downChange(items);
+                    opt = downChange();
                     opt.style.backgroundColor = "red"; // 为新选项设置背景色
                     break;
                 case 13: // Enter键
                     let decodeText = htmlDecode(opt.innerHTML); // 字符实体解码
                     this.value = decodeText; // li内容放入input
-                    deletTooltipCont(lis);
+                    deletTooltipCont();
                     break;
                 case 27:  // ESC键
-                    this.setSelectionRange(0,pos); // 全选用户输入
-                    deletTooltipCont(lis);
+                    this.setSelectionRange(0,pos); // 全选用户输入   可用this.select()代替
+                    deletTooltipCont();
                     break;
                 default:
                     break;
             }
-        });
+        }
         
         
         // 获取用户输入内容
-        function getInputText(userInput) {
-            return userInput.value;
+        function getInputText() {
+            // 输入内容去前后空格
+            let noSpaceText = deletAfterSpace(deletBeforeSpace(emailBox.value)); //str.trim()
+            return noSpaceText;
         }
 
 
@@ -192,33 +205,34 @@
 
 
         // 将提示内容添加到ul
-        function addLiIntoUL(texts,ulNode) {
-            deletTooltipCont(ulNode);
+        function addLiIntoUL(texts) {
+            // deletTooltipCont(lis); //删除之前的子元素  
+            lis.innerHTML = "";
             for (let i = 0; i < texts.length; i++) {
                 let item = document.createElement("li");
                 item.innerHTML = texts[i];
-                ulNode.appendChild(item);  //ulNode的引用被更新了，就算之前是静态获取，现在也更新了
+                lis.appendChild(item);  //lis的引用被更新了，就算之前是静态获取，现在也更新了
             }
         }
 
 
         // 删除ul提示框所有li子节点
-        function deletTooltipCont(ulNode) {
-            while (ulNode.childNodes.length>0) {
-                ulNode.removeChild(ulNode.childNodes[0]);
+        function deletTooltipCont() {
+            while (lis.childNodes.length>0) {
+                lis.removeChild(lis.childNodes[0]);
             }     
         }
 
 
         // 显示提示框
-        function showTooltip(ulNode) {
-            ulNode.style.display = "block"; 
+        function showTooltip() {
+            lis.style.display = "block"; 
         }
 
 
         // 隐藏提示框
-        function hideTooltip(ulNode) {
-            ulNode.style.display = "none"; 
+        function hideTooltip() {
+            lis.style.display = "none"; 
         }
 
         // HTML编码  > --> &gt;  Entity编码，防止XSS攻击
@@ -248,25 +262,30 @@
 
 
         // 选项向上改变
-        function upChange(liNodes) { 
-            if (nowSelectTipIndex == 0) {  // 当前选项是第一个元素
-                nowSelectTipIndex = liNodes.length-1;  // 调到最后一个元素  
+        function upChange() { 
+            if (nowSelectTipIndex == 0) {  // 当前选项是第一个元素  
+                nowSelectTipIndex = items.length-1;  // 调到最后一个元素  
             } else { // 当前选项不是第一个元素
                 nowSelectTipIndex--; // 调到上一个元素
-            }
-            return liNodes[nowSelectTipIndex];
+            }                                        // 可以被替代为 nowSelectTipIndex = (nowSelectTipIndex-1+items.length)%items.length
+            return items[nowSelectTipIndex];
         }
 
 
         // 选项向下改变
-        function downChange(liNodes) {
-            if (nowSelectTipIndex == liNodes.length-1) {  // 当前选项是最后一个元素
+        function downChange() {
+            if (nowSelectTipIndex == items.length-1) {  // 当前选项是最后一个元素
                 nowSelectTipIndex = 0;  // 调到第一个元素
             } else { // 当前选项不是最后一个元素
                 nowSelectTipIndex++; // 调到下一个元素
-            }    
-            return liNodes[nowSelectTipIndex];
+            }                                       // 可以被替代为 nowSelectTipIndex = (nowSelectTipIndex+1)%items.length
+            return items[nowSelectTipIndex];
         }  
+
+        // 选项样式设定
+        function optStyle() {
+            items[nowSelectTipIndex].style.backgroundColor = "red";
+        }
     </script>
 </body>
 </html>
