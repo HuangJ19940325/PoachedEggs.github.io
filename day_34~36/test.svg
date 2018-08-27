@@ -1,0 +1,76 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" version="1.1">
+    <line x1="10" x2="45" y1="50" y2="15" stroke="red"/>
+    <rect x="10" y="60" width="60" height="30" fill="#739c2a" fill-opacity="0.3" stroke="#3839ad"/>
+    <circle cx="35" cy="120" r="25" fill="#fa23c5" stroke="#234d6a"/>
+    <text x="90" y="160" text-anchor="end" fill="yellow" stroke="orange">
+        kdkd djdbc
+    </text>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="purple" stroke="red" stroke-width="1"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="yellow" stroke="red" stroke-width="1" transform="rotate(45,80 240)"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="purple" stroke="red" stroke-width="1" transform="rotate(90,80 240)"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="yellow" stroke="red" stroke-width="1" transform="rotate(135,80 240)"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="purple" stroke="red" stroke-width="1" transform="rotate(180,80 240)"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="yellow" stroke="red" stroke-width="1" transform="rotate(225,80 240)"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="purple" stroke="red" stroke-width="1" transform="rotate(270,80 240)"/>
+    <path d="M60 200 c -10 -30 50 -30 40 0 l -20 40 z" fill="yellow" stroke="red" stroke-width="1" transform="rotate(315,80 240)"/>
+    <circle cx="80" cy="240" r="10" fill="brown" stroke="orange" stroke-width="5"/>
+
+    <path d="M10 350 c 30 -70 55 -70 85 0 s 55 70 85 0" stroke="red" fill="none"/>
+
+    <path d="M10 450 q 85 -70 170 0 t 170 0" stroke="red" fill="none"/>
+
+    <path d="M10 500 q85 -70 120 0" stroke="red" fill="none"/>
+
+    <path d="M400 400 
+            l 30 0 
+            q -20 -5 -1 100 
+            l -30 0 
+            M400 400 
+            q 20 -5 1 100 
+            M400 400
+            l -50 -50 
+            m 50 50
+            l -20 -10
+            m 20 10
+            m -25 -25 
+            l 10 -20
+            m -10 20 
+            m -15 -15
+            l -30 -10" 
+            stroke="black" fill="none"/>
+    <path d="M400 400
+            l -50 -50 
+            m 50 50
+            l -20 -10
+            m 20 10
+            m -25 -25 
+            l 10 -20
+            m -10 20 
+            m -15 -15
+            l -30 -10" 
+            stroke="black" fill="none" transform="rotate(45,415 415)"/>
+    <path d="M400 400
+            l -50 -50 
+            m 50 50
+            l -20 -10
+            m 20 10
+            m -25 -25 
+            l 10 -20
+            m -10 20 
+            m -15 -15
+            l -30 -10" 
+            stroke="black" fill="none" transform="rotate(90,415 415)"/>
+    <path d="M400 430 q -60 20 -50 -15" stroke="black" fill="none"/>
+    <path d="M350 415 q -60 20 -50 -15" stroke="black" fill="none" transform="rotate(30,350 415)"/>
+    <path d="M310 380 q -60 20 -50 -15" stroke="black" fill="none" transform="rotate(80,310 380)"/>
+    <path d="M320 320 q 40 -60 80 0" stroke="black" fill="none"/>
+    <path d="M400 310 q 40 -60 80 0" stroke="black" fill="none"/>
+    <path d="M480 330 q 40 -60 80 0" stroke="black" fill="none" transform="rotate(45,480 300)"/>
+    <path d="M500 380 q 40 40 0 80" stroke="black" fill="none" transform="rotate(45,500 380)"/>
+    
+
+</svg>
