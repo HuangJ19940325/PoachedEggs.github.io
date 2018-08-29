@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="ife31data.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        table th {
+            padding: 2px 4px;
+            margin: 0;
+            width: 90px;
+            border: 1px black solid;
+            background-color: aqua;
+        }
+
+        table td {
+            padding: 2px 4px;
+            margin: 0;
+            width: 90px;
+            border: 1px black solid;
+            background-color: floralwhite;
+        }
+
+        table tr:hover > td {
+            background-color: aquamarine;
+        }
+
+        table td:hover::after {
+            content: attr(data-attr);
+            display: inline-block;
+            color: gray;
+            /* width: 16px;
+            height: 16px; 
+            background-color: black; */
+        }
+
+        table td input {
+            width: 25px;
+            display: block;
+        }
+
+        input {
+            display: inline-block;
+        }
+
+        #region-radio-wrapper,
+        #product-radio-wrapper {
+            border: 1px aqua solid;
+            width: 100px;
+            display: inline-block;
+            vertical-align: text-top;
+        }
+
+        #region-radio-wrapper input,
+        #product-radio-wrapper input {
+            cursor: pointer;
+        }
+
+        #svg-wrapper {
+            float: left;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+
+        #canvas-wrapper {
+            display: inline-block;
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="select">
+        <label for="product-radio-wrapper">商品：</label>
+        <div id="product-radio-wrapper"></div>
+        <label for="region-radio-wrapper">地区：</label>
+        <div id="region-radio-wrapper"></div>
+    </div>
+    <div id="svg-wrapper"></div>
+    <div id="canvas-wrapper"></div>
+    <div id="table-wrapper"></div>
+
+    <script src="js/checkbox.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/bar.js"></script>
+    <script src="js/line.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
