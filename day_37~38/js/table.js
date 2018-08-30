@@ -39,7 +39,7 @@ function renderTable(data) {
         tableRow.setAttribute("reg", data[i].region);
         for (let j = 0; j < tdNum; j++) {
             let td = document.createElement("td");
-            td.setAttribute("data-attr","编辑");
+            // td.setAttribute("data-attr","编辑");
             if (tdNum == 14 && j == 0) {
                 td.rowSpan = rowSpanNum();
             }
@@ -63,7 +63,8 @@ function renderTable(data) {
         // 12个月的数据
         let m = 0;
         for (let k = tdNum - 12; k < tdNum; k++) {
-            // tableRow.childNodes[k].setAttribute("data-attr","img/铅笔.png");
+            tableRow.childNodes[k].setAttribute("class", "sale");
+            tableRow.childNodes[k].setAttribute("data-attr", "编辑");
             tableRow.childNodes[k].innerHTML = data[i].sale[m];
             m++;
         }
@@ -103,8 +104,6 @@ function renderTable(data) {
         trs[i].addEventListener("mouseenter", function (e) {
             let oEvent = e || event;
             let target = e.target || e.srcElement;
-            // let num = target.innerHTML;
-            // target.innerHTML = "<span id='num'>" + num + "</span>" + "<img src='img/铅笔.png' alt='铅笔'/>"
             let reg = [], pro = [];
             reg[0] = target.getAttribute("reg");
             pro[0] = target.getAttribute("pro");
@@ -127,18 +126,18 @@ function renderTable(data) {
                 let editTd = table.querySelector("#edit");
                 if (editTd !== null) {
                     if (target == editTd) {
-                        target.setAttribute('data-attr',"");
+                        target.setAttribute('data-attr', "");
                     } else {
-                        target.setAttribute('data-attr',"");
+                        target.setAttribute('data-attr', "");
                     }
                 } else {
-                    target.setAttribute('data-attr',"编辑"); //url(img/铅笔.png)
+                    target.setAttribute('data-attr', "编辑"); //url(img/铅笔.png)
                 }
             });
             td.addEventListener("mouseleave", function (e) {
                 let oEvent = e || event;
                 let target = e.target || e.srcElement;
-                target.setAttribute('data-attr',"");
+                target.setAttribute('data-attr', "");
             });
         }
     }
@@ -148,22 +147,24 @@ function renderTable(data) {
         let oEvent = e || event;
         let target = e.target || e.srcElement;
         let editTd = table.querySelector("#edit");
-        if (target.nodeName == "TD" && editTd !== null) {
-            if (target.id == "") { // 存在正在编辑TD 点击到了别的TD
-                target.setAttribute('data-attr',"");
-                editTd.id = "";
-                editTd.innerHTML = num;
-            } else if (target.id == "edit") { // 存在正在编辑TD 点击到该TD
-                target.setAttribute('data-attr',"");
-                target.id = "";
-                target.innerHTML = num;
+        if (target.nodeName == "TD" && target.className == "sale") {
+            if (editTd !== null) {
+                if (target.id == "") { // 存在正在编辑TD 点击到了别的TD
+                    target.setAttribute('data-attr', "");
+                    editTd.id = "";
+                    editTd.innerHTML = num;
+                } else if (target.id == "edit") { // 存在正在编辑TD 点击到该TD
+                    target.setAttribute('data-attr', "");
+                    target.id = "";
+                    target.innerHTML = num;
+                }
+            } else if (editTd == null) { // 没有正在编辑的TD 点击到TD
+                target.setAttribute('data-attr', "");
+                num = target.innerHTML;
+                target.id = "edit";
+                target.innerHTML = "<input type='text' value='" + num + "'><button id='confirm'>确定</button><button id='cancel'>取消</button>";
+
             }
-        } else if (target.nodeName == "TD" && editTd == null) { // 没有正在编辑的TD 点击到TD
-            target.setAttribute('data-attr',"");
-            num = target.innerHTML;
-            target.id = "edit";
-            target.innerHTML = "<input type='text' value='" + num + "'><button id='confirm'>确定</button><button id='cancel'>取消</button>";
-            
         } else if (target.id == "confirm") { // 点击到TD的“确认”按钮
             // 判断输入是否位数字
 

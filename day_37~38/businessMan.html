@@ -32,6 +32,12 @@
             background-color: aquamarine;
         }
 
+        table tr:hover > td[rowSpan],
+        table tr:hover > td[rowSpan]+td,
+        table tr:hover > td:nth-child(1) {
+            background-color: transparent;
+        }
+
         table td:hover::after {
             content: attr(data-attr);
             display: inline-block;
