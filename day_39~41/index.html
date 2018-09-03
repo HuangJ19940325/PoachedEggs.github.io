@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hash pushState</title>
+    <style>
+        #contABC {
+            width: 100px;
+            height: 30px;
+            border: 1px solid black;
+        }
+
+        #contDEF {
+            width: 100px;
+            height: 30px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+
+    <button id="d">D</button>
+    <button id="e">E</button>
+    <button id="f">F</button>
+
+    <div id="contABC"></div>
+    <div id="contDEF"></div>
+
+    <ul onclick="getNewContent()">
+        <li>基于以上HTML，点击对应按钮时候，改变div中的内容为按钮的文字。 刷新页面的时候，保持div中的显示 页面URL copy再打开后，保留渲染状态 通过location.hash来实现
+        </li>
+    </ul>
+    <div id="response"></div>
+
+
+    <script>
+        // 解析harsh，获取需要的值并返回
+        function getHashValue() {
+            let hash = window.location.hash;
+            let hashValue = hash.substring(1);
+            return hashValue;
+        }
+        // 渲染函数 将Hash内容保存到div内
+        function render() {
+            let cont = getHashValue();
+            if (cont == "A" || cont == "B" || cont == "C") {
+                let div = document.querySelector("#contABC");
+                div.innerHTML = cont;
+                let div_non = document.querySelector("#contDEF");
+                div_non.innerHTML = "";
+            } else if (cont == "D" || cont == "E" || cont == "F") {
+                let div = document.querySelector("#contDEF");
+                div.innerHTML = cont;
+                let div_non = document.querySelector("#contABC");
+                div_non.innerHTML = "";
+            }
+        }
+        // 点击按钮事件  点击按钮时，设置LocationHash
+        let butts = document.querySelectorAll("button");
+        for (let i = 0; i < butts.length; i++) {
+            let butt = butts[i];
+            butt.addEventListener("click", function (e) {
+                let content = butt.innerHTML;
+                if (window.location) {
+                    // 获取新hash
+                    window.location.hash = "#" + content;
+                }
+            });
+        }
+        // hash改变时，触发onhashchange函数
+        window.onhashchange = render;
+        render();
+
+        function getNewContent() {
+            request = new XMLHttpRequest();
+            let url = "sourceData.json";
+            request.addEventListener("readystatechange", function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    let dataText = request.responseText;
+                    let dataObj = JSON.parse(dataText);
+                    let stateObj = dataObj;
+                    let res = document.querySelector("#response");
+                    res.innerHTML = dataText;
+                    history.pushState(stateObj, 'ajax', "index.html#ajax");
+                }
+            });
+            request.open("GET", url, true);
+            request.send(null);
+        }
+
+        window.onpopstate = function (e) {
+                let res = document.querySelector("#response");
+                res.innerHTML = JSON.stringify(e.state);
+        };
+    </script>
+</body>
+
+</html>
