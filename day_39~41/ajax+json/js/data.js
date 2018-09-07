@@ -140,7 +140,7 @@ function findTopValue(maxValue) {
 function chooseData(data) {
     let dataArr = data;
     // console.log(window.localStorage);
-    if (typeof (window.localStorage) !== "undefined") {
+    if (window.localStorage) {
         let storage = window.localStorage;
         if (storage.myData) {
             let myDataObj = JSON.parse(storage.myData);
