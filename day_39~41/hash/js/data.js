@@ -76,7 +76,7 @@ function findTopValue(maxValue) {
 // 选择源数据还是localStorage中的数据
 function choseData() {
     let dataArr = sourceData;
-    window.localStorage.clear();
+    // window.localStorage.clear();
     if (window.localStorage) {
         let storage = window.localStorage;
         if (storage.myData) {
