@@ -142,8 +142,8 @@ function chooseData(data) {
     // console.log(window.localStorage);
     if (typeof (window.localStorage) !== "undefined") {
         let storage = window.localStorage;
-        if (storage.myAjaxData) {
-            let myDataObj = JSON.parse(storage.myAjaxData);
+        if (storage.myData) {
+            let myDataObj = JSON.parse(storage.myData);
             dataArr = myDataObj.data;
         }
     }
@@ -169,7 +169,7 @@ function saveDataToLocalStorage() {
             }
         }
     }
-    storage.myAjaxData = JSON.stringify(myData);
+    storage.myData = JSON.stringify(myData);
 }
 
 // 找到与表格中某一行数据对应的数据，返回该数据在数组中的索引值
