@@ -76,12 +76,8 @@ function renderTable(data) {
     tableWrapper.appendChild(table);
     // 添加鼠标滑出事件监听
     table.addEventListener("mouseleave", function () {
-        // 生成柱状图
-        chartA.data = manageData();;
-        chartA.graphBarChart();
-        // 画默认折线图
-        chartB.data = manageData();;
-        chartB.graphLineChart();
+        let data = manageData(sourData);
+        renderChart(data);
     });
     // 添加鼠标滑过事件监听
     let trs = table.querySelectorAll("tr");
@@ -95,13 +91,8 @@ function renderTable(data) {
             let selObj = {};
             selObj.area = reg;
             selObj.goods = pro;
-            let saleData = getData(selObj);
-            // 生成柱状图
-            chartA.data = saleData;
-            chartA.graphBarChart();
-            // 画默认折线图
-            chartB.data = saleData;
-            chartB.graphLineChart();
+            let saleData = genDataObjArr(selObj,sourData);
+            renderChart(saleData);
         });
     }
     // 添加鼠标滑入滑出事件监听
@@ -167,11 +158,11 @@ function renderTable(data) {
             let reg = [], pro = [];
             reg[0] = granparent.getAttribute("reg");
             pro[0] = granparent.getAttribute("pro");
-            let saleData = getData(reg, pro);
-            chartA.data = saleData;
-            chartA.graphBarChart();
-            chartB.data = saleData;
-            chartB.graphLineChart();
+            let sele = {};
+            sele.area = reg;
+            sele.goods = pro;
+            let saleData = genDataObjArr(sele,sourData);
+            renderChart(saleData);
         } else if (target.id == "cancel") { // 点击到TD的“取消”按钮
             target.parentNode.id = "";
             // 取消input输入框和按钮

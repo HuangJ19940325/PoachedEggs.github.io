@@ -1,12 +1,62 @@
+// 异步获取数据
+function ajax() {
+    let myRequest = getRequest();
+    let url = "sourceData.json";
+    if (myRequest !== null) {
+        myRequest.onreadystatechange = function () {
+            if (myRequest.readyState == 4 && myRequest.status == 200) {
+                let allDataText = myRequest.responseText;
+                let allDataObj = JSON.parse(allDataText);
+                sourData = allDataObj.sourceData;
+                barColorArr = allDataObj.barColorArr;
+                renderForm();
+                let data =  manageData(sourData);
+                renderChart(data);
+                renderTable(data);
+            }
+        }
+        myRequest.open("GET",url,true);
+        myRequest.send(null);
+    }
+}
+
+// 获取XMLHttpRequest对象
+function getRequest() {
+    let request = null;
+    if (window.ActiveXObject) {
+        request = new ActiveXObject("Microsoft.XMLHTTP");
+    } else if (window.XMLHttpRequest) {
+        request = new XMLHttpRequest();
+    }
+    return request;
+}
+
 // 管理系统
-function manageData() {
-    let selectObj = getSelectObj();
-    let dataArr = getData(selectObj);
+function manageData(data) {
+    let state = history.state;
+    let selectObj = getTwoSelectObj(state); // obj{area:[],goods:[]}
+    let dataArr = genDataObjArr(selectObj,data); //arr[{},{},{},..]
     return dataArr;
 }
 
-// 生成选择数据对象
-function genSelectObj() {
+// 从state中获取选择的地区和商品
+function getTwoSelectObj(state) {
+    let stateObj = state;
+    if (stateObj !== null) {
+        selectObj = stateObj;
+    } else {
+        let hash = gethashObj();
+        if (hash == null) {
+            selectObj = getFormSelectObj();
+        } else {
+            selectObj = hash;
+        }
+    }
+    return selectObj;
+}
+
+// 根据表单生成数据对象
+function getFormSelectObj() {
     let selectArea = [];
     let areaOptions = area.querySelectorAll("input[type='checkbox']");
     for (let i = 0; i < areaOptions.length; i++) {
@@ -27,12 +77,24 @@ function genSelectObj() {
     return selectObj;
 }
 
-// 获取数据
-function getData(sele) {
+// 获取location.hash，并序列化
+function gethashObj() {
+    let url = window.location.href;
+    let hashString = url.split("?")[1];
+    if (typeof (hashString) == "undefined") {
+        return null;
+    }
+    let hashText = decodeURIComponent(hashString);
+    let hash = JSON.parse(hashText);
+    return hash;
+}
+
+// 获取数据对象的数组
+function genDataObjArr(sele,data) {
     // 遍历sourceData,找到与选择匹配的数据
     // let area = getSelectedArea();
     let aquiredDataArr = [];
-    let dataArr = choseData();
+    let dataArr = chooseData(data);
     for (let i = 0; i < dataArr.length; i++) {
         let obj = dataArr[i];
         for (let ri = 0; ri < sele.area.length; ri++) {
@@ -45,6 +107,7 @@ function getData(sele) {
     }
     return aquiredDataArr;
 }
+
 // 查找数组中的最大值
 function maxValueOfData(data) {
     let maxValue = Number(data[0]);
@@ -74,29 +137,30 @@ function findTopValue(maxValue) {
 }
 
 // 选择源数据还是localStorage中的数据
-function choseData() {
-    let dataArr = sourceData;
-    if (typeof (Storage) !== "undefined") {
+function chooseData(data) {
+    let dataArr = data;
+    // console.log(window.localStorage);
+    if (typeof (window.localStorage) !== "undefined") {
         let storage = window.localStorage;
-        if (storage.myData) {
-            let myDataObj = JSON.parse(storage.myData);
+        if (storage.myAjaxData) {
+            let myDataObj = JSON.parse(storage.myAjaxData);
             dataArr = myDataObj.data;
         }
     }
     return dataArr;
 }
 
-// 存储数据到LocalStorage
+// 存储数据对象{[{},{},{}...]}到LocalStorage
 function saveDataToLocalStorage() {
     let storage = window.localStorage;
     let myData = {};
-    myData.data = sourceData;
+    myData.data = sourData;
     // 遍历table 保存数据
     let table = document.querySelector("table");
     let trs = table.querySelectorAll("tr");
     for (let i = 1; i < trs.length; i++) {
         let tds = trs[i].querySelectorAll("td");
-        let matchIndex = findmatchIndex(trs[i]);
+        let matchIndex = findmatchIndex(trs[i],myData.data);
         let m = 0;
         for (let j = 0; j < tds.length; j++) {
             if (!isNaN(tds[j].innerHTML)) {
@@ -105,14 +169,14 @@ function saveDataToLocalStorage() {
             }
         }
     }
-    storage.myData = JSON.stringify(myData);
+    storage.myAjaxData = JSON.stringify(myData);
 }
 
-// 找到与表格中某一行数据对应的数据，返回该数据在在数组中的索引值
-function findmatchIndex(tr) {
+// 找到与表格中某一行数据对应的数据，返回该数据在数组中的索引值
+function findmatchIndex(tr,data) {
     let storage = window.localStorage;
     let myData = {};
-    myData.data = sourceData;
+    myData.data = data;
     let pro = tr.getAttribute("pro");
     let reg = tr.getAttribute("reg");
     for (let i = 0; i < myData.data.length; i++) {
@@ -122,27 +186,3 @@ function findmatchIndex(tr) {
     }
 }
 
-// 获取location hash的内容
-function setHash() {
-    let selObj = genSelectObj();
-    let selText = JSON.stringify(selObj);
-    let hash = "#" + selText;
-    return hash;
-}
-
-// 从hash中获取选择的地区和商品
-function getSelectObj() {
-    let hashObj = gethashObj();
-    if (hashObj !== null) {
-        hashCheck(area);
-        hashCheck(goods);
-        selectObj = hashObj;
-    } else {
-        checkAll(area);
-        allRadioCheck(area);
-        checkAll(goods);
-        allRadioCheck(goods);
-        selectObj = genSelectObj();
-    }
-    return selectObj;
-}
