@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>responsibility</title>
+</head>
+
+<body>
+    <script>
+
+        // 抽象处理者角色
+        function Handler() {
+            this.next = null;
+            this.setNext = function (_handler) {
+                this.next = _handler;
+            };
+
+            this.handleRequest = function (money) {
+
+            }
+        };
+
+        // 具体处理者角色
+
+        //采购部
+        function CGBHandler() { }
+        CGBHandler.prototype = new Handler();
+        CGBHandler.prototype.handleRequest = function (money) {
+            //处理权限最多10000
+            if (money < 10000) {
+                console.log('同意');
+            } else {
+                console.log('金额太大，只能处理一万以内的采购');
+                if (this.next) {
+                    this.next.handleRequest(money);
+                }
+            }
+        };
+        //总经理
+        function ZJLHandler() { }
+        ZJLHandler.prototype = new Handler();
+        ZJLHandler.prototype.handleRequest = function (money) {
+            //处理权限最多100000
+            if (money < 100000) {
+                console.log('10万以内的同意');
+            } else {
+                console.log('金额太大，只能处理十万以内的采购');
+                if (this.next) {
+                    this.next.handleRequest(money);
+                }
+            }
+        };
+        //董事长
+        function DSZHandler() { }
+        DSZHandler.prototype = new Handler();
+        DSZHandler.prototype.handleRequest = function (money) {
+            //处理权限至少100000
+            if (money >= 100000) {
+                console.log('10万以上的我来处理');
+                //处理其他逻辑
+            }
+        };
+
+
+        // 客户端使用
+        function Client(money) {
+            var cgb = new CGBHandler();
+            var zjl = new ZJLHandler();
+            var dsz = new DSZHandler();
+
+            cgb.setNext(zjl);
+            zjl.setNext(dsz);
+
+            console.log("需要申请的金额是：" + money);
+            cgb.handleRequest(money);
+        }
+
+        Client(800000);
+
+    </script>
+</body>
+
+</html>
